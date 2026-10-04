@@ -269,7 +269,11 @@ body.dk-open{overflow:hidden}
 .dsl .lbl{margin-bottom:16px}
 .dsl h2{font-size:clamp(40px,12vw,96px);margin-bottom:20px}
 .dsl p{font-size:17px;line-height:1.25;letter-spacing:-.01em;max-width:28em;margin-bottom:18px}
-.dsl .dcard{border:1px solid rgba(20,22,21,.2);border-radius:8px;padding:20px;margin-bottom:12px}
+.dsl .dcar{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 20px;margin:0 -20px;padding:0 20px;scrollbar-width:none;flex:none}
+.dsl .dcar::-webkit-scrollbar{display:none}
+.dsl .dcard{flex:0 0 84%;scroll-snap-align:start;min-height:min(46svh,380px);border:1px solid rgba(20,22,21,.2);border-radius:8px;padding:22px}
+.dsl .dcb{height:2px;margin-top:14px;background:rgba(20,22,21,.15);position:relative;flex:none}
+.dsl .dcb i{position:absolute;top:0;bottom:0;left:0;width:33%;background:#141615}
 .dsl ul{list-style:none;font-size:17px;line-height:1.5}
 .dsl .rows{border-bottom:1px solid rgba(20,22,21,.2);margin-bottom:18px}
 .dsl .rows li{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid rgba(20,22,21,.2);font-size:17px}
@@ -465,7 +469,7 @@ input::placeholder{color:var(--mute)}
   <div id="dkc">
     <section class="dsl" data-t="Welcome"><span class="lbl">[ We are SAUTiQ ]</span><h2>A studio that makes Ghanaian brands impossible to ignore.</h2><p>Websites, social media and content for Ghanaian brands and creators. Built in Accra by three digital musketeers.</p></section>
     <section class="dsl" data-t="Who we are"><span class="lbl">[ Who we are ]</span><h2>Small team.<br>Full heart.</h2><p>We move fast, reply faster and keep it real. No fluff, no games. We show you drafts early and we care whether your phone starts ringing.</p><div class="dph"><img src="photos-gabby.jpg" alt="Gabriel" onerror="this.remove()"><img src="photos-solomon.jpg" alt="Solomon" onerror="this.remove()"><img src="photos-clif.jpg" alt="Clif" onerror="this.remove()"></div></section>
-    <section class="dsl" data-t="What we do"><span class="lbl">[ What we do ]</span><h2>What we do.</h2><div class="dcard"><span class="lbl">[ Websites ]</span><ul><li>Business websites</li><li>Creator sites</li><li>Online shops</li><li>WhatsApp + Mobile Money</li></ul></div><div class="dcard"><span class="lbl">[ Social &amp; content ]</span><ul><li>Instagram + TikTok</li><li>Photo + video</li><li>Graphics + branding</li></ul></div></section>
+    <section class="dsl" data-t="What we do"><span class="lbl">[ What we do ]</span><h2>What we do.</h2><div class="dcar"><div class="dcard"><span class="lbl">[ Websites ]</span><ul><li>Business websites</li><li>Creator sites</li><li>Online shops</li><li>WhatsApp + Mobile Money</li><li>Google Maps setup</li></ul></div><div class="dcard"><span class="lbl">[ Social &amp; content ]</span><ul><li>Instagram + TikTok</li><li>Posts + stories</li><li>Photo + video</li><li>Graphics + branding</li><li>Review replies</li></ul></div><div class="dcard"><span class="lbl">[ Marketing ]</span><ul><li>Growth strategy</li><li>Paid ads</li><li>Campaigns</li><li>Local SEO</li><li>Monthly retainers</li></ul></div></div><div class="dcb"><i></i></div></section>
     <section class="dsl" data-t="Websites"><span class="lbl">[ Prices: websites ]</span><h2>Websites.</h2><ul class="rows"><li>Business websites<span>On request</span></li><li>Creator sites<span>On request</span></li><li>Online shops<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
     <section class="dsl" data-t="Social"><span class="lbl">[ Prices: social &amp; content ]</span><h2>Social &amp; content.</h2><ul class="rows"><li>Instagram + TikTok<span>On request</span></li><li>Photo + video<span>On request</span></li><li>Graphics + branding<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
     <section class="dsl" data-t="Marketing"><span class="lbl">[ Prices: marketing ]</span><h2>Marketing.</h2><ul class="rows"><li>Paid ads<span>On request</span></li><li>Campaigns<span>On request</span></li><li>Monthly retainers<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
@@ -645,6 +649,7 @@ var DK=$("#dkc"),DS=$$("#dkc .dsl"),DP=$("#dkp"),DT=$("#dkt");
 DS.forEach(function(sl,i){DP.appendChild(document.createElement("i"));var b=document.createElement("button");b.textContent=sl.dataset.t;b.onclick=function(){DK.scrollTo({left:i*DK.clientWidth,behavior:"smooth"})};DT.appendChild(b)});
 function dkSync(){var i=Math.max(0,Math.min(DS.length-1,Math.round(DK.scrollLeft/DK.clientWidth)));$$("#dkp i").forEach(function(e,j){e.classList.toggle("on",j<=i)});$$("#dkt button").forEach(function(e,j){e.classList.toggle("on",j===i)})}
 DK.addEventListener("scroll",dkSync,{passive:true});
+$$("#dkc .dcar").forEach(function(c){var t=c.nextElementSibling.firstChild;function f(){var m=c.scrollWidth-c.clientWidth,w=c.clientWidth/c.scrollWidth*100;t.style.width=w+"%";t.style.left=(m>0?c.scrollLeft/m*(100-w):0)+"%"}c.addEventListener("scroll",f,{passive:true});f()});
 function dk(f){tog(false);B.classList.toggle("dk-open",f);if(!f)B.classList.remove("dk-th");if(f){DK.scrollLeft=0;DS.forEach(function(s){s.scrollTop=0});dkSync()}}
 $$("[data-dk]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();dk(true)})});
 $("#dkx").onclick=function(){dk(false)};$("#dkm").onclick=function(){B.classList.toggle("dk-th")};
