@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://codeclif.github.io/sautiQ/sitemap.xml
