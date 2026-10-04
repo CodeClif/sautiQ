@@ -117,11 +117,11 @@ nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0));left:16px;right:1
 li.on .sub{max-height:150px;padding-bottom:8px}li.on .pl{transform:rotate(45deg)}.pl,.ar2{width:16px;height:16px;fill:currentColor;flex:none}.pl{transition:.25s}.ar{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .nm .ct{padding:13px;display:grid;gap:12px}.nm .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .nm .btn{height:49px;padding:0 12px;justify-content:center;border-radius:6px;font-size:11px}
-.tg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);margin:0 13px 14px;height:38px;padding:3px;border:1px solid var(--line);border-radius:8px;background:rgba(127,127,127,.08)}
+.tg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);margin:0 13px 14px;height:30px;padding:3px;border:1px solid var(--line);border-radius:8px;background:rgba(127,127,127,.08)}
 .tg .tgt{position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px)/3);background:var(--fg);border-radius:5px;transform:translateX(calc(var(--p,1)*100%));transition:transform .4s cubic-bezier(.7,0,.2,1)}
-.tg button{position:relative;z-index:1;background:none;border:0;color:inherit;display:grid;place-items:center;font:400 10px var(--mono);letter-spacing:.04em;cursor:pointer;opacity:.75;transition:color .3s,opacity .3s;-webkit-tap-highlight-color:transparent}
+.tg button{position:relative;z-index:1;background:none;border:0;color:inherit;display:grid;place-items:center;font:400 9px var(--mono);letter-spacing:.04em;cursor:pointer;opacity:.75;transition:color .3s,opacity .3s;-webkit-tap-highlight-color:transparent}
 .tg button.on{color:var(--bg);opacity:1}
-.tg svg{width:18px;height:18px;fill:currentColor;shape-rendering:crispEdges}
+.tg svg{width:14px;height:14px;fill:currentColor;shape-rendering:crispEdges}
 .us{position:fixed;left:50%;bottom:calc(44px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:51;display:grid;justify-items:center;gap:10px;font:400 12px var(--mono);text-transform:uppercase;background:none;border:0;color:inherit;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .5s .15s}.open .us{opacity:1;pointer-events:auto}
 .us i{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#8a857a 55%,#1a1a1a);animation:pulse 5s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(.8)}}
@@ -255,6 +255,38 @@ footer{padding:0 20px calc(110px + env(safe-area-inset-bottom,0))}
 .sch-open .fb{display:none}
 .fb button{flex:none;font:400 11px var(--mono);text-transform:uppercase;padding:12px 15px;border:1px solid var(--line);background:none;color:inherit;border-radius:6px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .fb button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+/* pitch deck / prices */
+#dk{position:fixed;inset:0;z-index:56;background:#f6f1e8;color:#141615;transform:translateY(100%);transition:transform .6s cubic-bezier(.7,0,.2,1);visibility:hidden;display:flex;flex-direction:column}
+.dk-open #dk{transform:none;visibility:visible}
+body.dk-open{overflow:hidden}
+.dk-open .hbar{opacity:0!important}
+#dk .dkh{display:flex;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top,0px)) 12px 12px}
+#dk .dkh button{width:44px;height:44px;border:1px solid rgba(20,22,21,.18);border-radius:8px;background:#f6f1e8;color:#141615;font:400 16px var(--mono);cursor:pointer;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+#dk .dkh svg{width:18px;height:18px;fill:currentColor;shape-rendering:crispEdges}
+#dkc{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior:contain;scrollbar-width:none}
+#dkc::-webkit-scrollbar{display:none}
+.dsl{flex:0 0 100%;scroll-snap-align:start;overflow-y:auto;padding:8px 20px 24px;display:flex;flex-direction:column;justify-content:flex-end}
+.dsl .lbl{margin-bottom:16px}
+.dsl h2{font-size:clamp(40px,12vw,96px);margin-bottom:20px}
+.dsl p{font-size:17px;line-height:1.25;letter-spacing:-.01em;max-width:28em;margin-bottom:18px}
+.dsl .dcard{border:1px solid rgba(20,22,21,.2);border-radius:8px;padding:20px;margin-bottom:12px}
+.dsl ul{list-style:none;font-size:17px;line-height:1.5}
+.dsl .rows{border-bottom:1px solid rgba(20,22,21,.2);margin-bottom:18px}
+.dsl .rows li{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid rgba(20,22,21,.2);font-size:17px}
+.dsl .rows span{font:400 12px var(--mono);text-transform:uppercase;opacity:.65;white-space:nowrap;align-self:center}
+.dsl .dph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.dsl .dph img{width:100%;aspect-ratio:3/4.4;object-fit:cover;object-position:50% 15%;border-radius:2px;background:#e4ded2}
+.dsl .dbt{display:flex;gap:8px;flex-wrap:wrap}
+.dsl .btn{color:#141615;border-color:rgba(20,22,21,.3)}
+.dsl .btn.f{background:#141615;color:#f6f1e8;border-color:#141615}
+#dkp{display:flex;gap:4px;padding:0 12px 10px}
+#dkp i{flex:1;height:2px;background:rgba(20,22,21,.18);transition:background .3s}
+#dkp i.on{background:#141615}
+#dkt{display:none;gap:6px;padding:0 12px calc(12px + env(safe-area-inset-bottom,0px));overflow-x:auto;scrollbar-width:none}
+#dkt::-webkit-scrollbar{display:none}
+.dk-th #dkt{display:flex}
+#dkt button{flex:none;font:400 11px var(--mono);text-transform:uppercase;padding:12px 14px;border:1px solid rgba(20,22,21,.2);border-radius:6px;background:none;color:#141615;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#dkt button.on{background:#141615;color:#f6f1e8;border-color:#141615}
 /* call booking */
 #sch{position:fixed;inset:0;z-index:65;background:var(--bg);color:var(--fg);overflow-y:auto;overscroll-behavior:contain;transform:translateY(100%);transition:transform .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
 .sch-open #sch{transform:none;visibility:visible}
@@ -316,7 +348,7 @@ input::placeholder{color:var(--mute)}
     <li><a href="#intro">Free for creators <svg class="ar2" viewBox="0 0 15 15"><rect x="12" y="0" width="3" height="3"/><rect x="6" y="0" width="3" height="3"/><rect x="12" y="6" width="3" height="3"/><rect x="6" y="6" width="3" height="3"/><rect x="0" y="12" width="3" height="3"/></svg></a></li>
     <li><a href="#brief">Contact</a></li>
   </ul>
-  <div class="ct"><a class="btn w" href="https://wa.me/233XXXXXXXXX?text=Hi%20SAUTiQ%2C%20please%20send%20me%20your%20prices.">Our prices</a>
+  <div class="ct"><a class="btn w" href="#" data-dk>Our prices</a>
   <div class="two"><a class="btn f" href="https://wa.me/233XXXXXXXXX?text=Hi%20SAUTiQ%2C%20I%27d%20like%20to%20chat.">Chat on WhatsApp</a><a class="btn f" href="#" data-start>Schedule a call</a></div></div>
   <div class="tg" id="th" role="group" aria-label="Theme"><i class="tgt"></i><button data-m="light" aria-label="Light mode"></button><button data-m="auto" aria-label="Auto: light 6am to 6pm, dark 6pm to 6am">AUTO</button><button data-m="dark" aria-label="Dark mode"></button></div>
 </div>
@@ -427,6 +459,22 @@ input::placeholder{color:var(--mute)}
   </div>
 </div>
 <div class="fb" id="fb"><button class="on" data-f="all">All</button><button data-f="website">Website</button><button data-f="social">Social</button><button data-f="marketing">Marketing</button></div>
+
+<div id="dk" role="dialog" aria-label="Our prices">
+  <div class="dkh"><button id="dkm" aria-label="Slides"><svg viewBox="0 0 9 9"><rect x="0" y="1" width="9" height="1"/><rect x="0" y="4" width="9" height="1"/><rect x="0" y="7" width="9" height="1"/></svg></button><button id="dkx" aria-label="Close">✕</button></div>
+  <div id="dkc">
+    <section class="dsl" data-t="Welcome"><span class="lbl">[ We are SAUTiQ ]</span><h2>A studio that makes Ghanaian brands impossible to ignore.</h2><p>Websites, social media and content for Ghanaian brands and creators. Built in Accra by three digital musketeers.</p></section>
+    <section class="dsl" data-t="Who we are"><span class="lbl">[ Who we are ]</span><h2>Small team.<br>Full heart.</h2><p>We move fast, reply faster and keep it real. No fluff, no games. We show you drafts early and we care whether your phone starts ringing.</p><div class="dph"><img src="photos-gabby.jpg" alt="Gabriel" onerror="this.remove()"><img src="photos-solomon.jpg" alt="Solomon" onerror="this.remove()"><img src="photos-clif.jpg" alt="Clif" onerror="this.remove()"></div></section>
+    <section class="dsl" data-t="What we do"><span class="lbl">[ What we do ]</span><h2>What we do.</h2><div class="dcard"><span class="lbl">[ Websites ]</span><ul><li>Business websites</li><li>Creator sites</li><li>Online shops</li><li>WhatsApp + Mobile Money</li></ul></div><div class="dcard"><span class="lbl">[ Social &amp; content ]</span><ul><li>Instagram + TikTok</li><li>Photo + video</li><li>Graphics + branding</li></ul></div></section>
+    <section class="dsl" data-t="Websites"><span class="lbl">[ Prices: websites ]</span><h2>Websites.</h2><ul class="rows"><li>Business websites<span>On request</span></li><li>Creator sites<span>On request</span></li><li>Online shops<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
+    <section class="dsl" data-t="Social"><span class="lbl">[ Prices: social &amp; content ]</span><h2>Social &amp; content.</h2><ul class="rows"><li>Instagram + TikTok<span>On request</span></li><li>Photo + video<span>On request</span></li><li>Graphics + branding<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
+    <section class="dsl" data-t="Marketing"><span class="lbl">[ Prices: marketing ]</span><h2>Marketing.</h2><ul class="rows"><li>Paid ads<span>On request</span></li><li>Campaigns<span>On request</span></li><li>Monthly retainers<span>On request</span></li></ul><p>Ask us for a quote. We reply on WhatsApp.</p></section>
+    <section class="dsl" data-t="Free promo"><span class="lbl">[ For creators ]</span><h2>Free website while we grow.</h2><ul class="rows"><li>You pay domain + hosting</li><li>You post the launch</li><li>You share a testimonial</li><li>Few spots</li></ul></section>
+    <section class="dsl" data-t="Say hello"><span class="lbl">[ Get in touch ]</span><h2>Say no more.<br>It's a match.</h2><p>Got a brand to build or a wild idea to chase? Drop us a line.</p><div class="dbt"><a class="btn f" href="#" data-start>Schedule a call</a><a class="btn" href="https://wa.me/233XXXXXXXXX?text=Hi%20SAUTiQ%2C%20please%20send%20me%20your%20prices.">Chat on WhatsApp</a></div></section>
+  </div>
+  <div id="dkp"></div>
+  <div id="dkt"></div>
+</div>
 
 <div id="sch" aria-label="Schedule a call">
   <div class="sh"><span class="pg" id="schl"></span><button id="schx" aria-label="Close">✕</button></div>
@@ -591,6 +639,16 @@ $("#bc").onclick=function(){var n=$("#fn").value.trim(),ph=$("#fp").value.trim()
   $("#wl").href=url;sv(4);location.href=url};
 $("#schx").onclick=function(){sch(false)};$("#bd").onclick=function(){sch(false)};
 $$("[data-start]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();sch(true)})});
+
+/* pitch deck */
+var DK=$("#dkc"),DS=$$("#dkc .dsl"),DP=$("#dkp"),DT=$("#dkt");
+DS.forEach(function(sl,i){DP.appendChild(document.createElement("i"));var b=document.createElement("button");b.textContent=sl.dataset.t;b.onclick=function(){DK.scrollTo({left:i*DK.clientWidth,behavior:"smooth"})};DT.appendChild(b)});
+function dkSync(){var i=Math.max(0,Math.min(DS.length-1,Math.round(DK.scrollLeft/DK.clientWidth)));$$("#dkp i").forEach(function(e,j){e.classList.toggle("on",j<=i)});$$("#dkt button").forEach(function(e,j){e.classList.toggle("on",j===i)})}
+DK.addEventListener("scroll",dkSync,{passive:true});
+function dk(f){tog(false);B.classList.toggle("dk-open",f);if(!f)B.classList.remove("dk-th");if(f){DK.scrollLeft=0;DS.forEach(function(s){s.scrollTop=0});dkSync()}}
+$$("[data-dk]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();dk(true)})});
+$("#dkx").onclick=function(){dk(false)};$("#dkm").onclick=function(){B.classList.toggle("dk-th")};
+addEventListener("keydown",function(e){if(!B.classList.contains("dk-open"))return;if(e.key==="Escape")dk(false);if(e.key==="ArrowRight")DK.scrollBy({left:DK.clientWidth,behavior:"smooth"});if(e.key==="ArrowLeft")DK.scrollBy({left:-DK.clientWidth,behavior:"smooth"})});
 
 /* nav label + logo swap */
 var nl=$("#nl"),secs=$$("[data-l]"),cur="";
