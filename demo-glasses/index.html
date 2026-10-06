@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#faf8f4">
+<title>Sol &amp; Frame | Concept prototype by SAUTiQ</title>
+<meta name="description" content="A concept online store for a fashion eyewear brand, designed by SAUTiQ. Brand, products and prices are samples.">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="preload" href="../font-inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font-instrument-serif-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../font-inter-tight.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(font-instrument-serif-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(font-instrument-serif-italic.woff2) format("woff2")}
+:root{--bg:#faf8f4;--ink:#141414;--mute:rgba(20,20,20,.6);--line:rgba(20,20,20,.12);--sand:#efe9de;--stone:#e4dccd;--accent:#b4562f;
+--serif:"Instrument Serif",Georgia,serif;--sans:"Inter Tight","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.wrap{width:min(1240px,100% - 40px);margin:0 auto}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic}
+h2{font-size:clamp(38px,6.4vw,76px)}
+.lbl{font:500 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 30px;font:500 14px var(--sans);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);transition:.25s;-webkit-tap-highlight-color:transparent}
+.btn-dark{background:var(--ink);color:var(--bg)}.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.btn-line:hover{background:var(--ink);color:var(--bg)}
+.btn:active{transform:scale(.98)}
+
+.proto{background:var(--ink);color:#d8d3c8;font:400 13px var(--sans);padding:9px 0}
+.proto .wrap{display:flex;justify-content:space-between;gap:14px;align-items:center}
+.proto b{color:#fff;font-weight:600}
+.proto button{font:500 13px var(--sans);color:#fff;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.ann{background:var(--sand);text-align:center;font:500 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:10px 12px}
+
+header{position:sticky;top:0;z-index:40;background:rgba(250,248,244,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px}
+.nav ul{display:flex;gap:28px;list-style:none;font-size:14px;font-weight:500}
+.nav ul a{opacity:.75;transition:.2s}.nav ul a:hover{opacity:1}
+.logo{font:400 30px var(--serif);text-align:center;letter-spacing:-.01em}
+.logo i{font-style:italic;color:var(--accent)}
+.nav .r{display:flex;justify-content:flex-end;align-items:center;gap:6px}
+.icon-btn{width:46px;height:46px;display:grid;place-items:center;position:relative}
+.icon-btn svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.count{position:absolute;right:3px;top:5px;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font:600 11px/18px var(--sans);text-align:center;padding:0 4px;transform:scale(0);transition:.25s}
+.count.on{transform:scale(1)}
+.burger{display:none}
+@media(max-width:860px){.nav{grid-template-columns:auto 1fr auto}.nav ul{display:none}.burger{display:grid}.logo{text-align:center}
+ .menu-open .nav ul{display:flex;position:fixed;inset:calc(68px + 80px) 0 0 0;background:var(--bg);flex-direction:column;gap:0;padding:20px;z-index:39}
+ .menu-open .nav li a{display:block;padding:18px 0;border-bottom:1px solid var(--line);font:400 34px var(--serif);opacity:1}}
+
+/* hero */
+.hero{padding:clamp(28px,5vw,60px) 0 clamp(50px,8vw,100px)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,70px);align-items:center}
+.hero h1{font-size:clamp(54px,10vw,128px);margin:20px 0 24px}
+.hero p{font-size:clamp(17px,2vw,20px);color:var(--mute);max-width:26em;margin-bottom:34px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-pic{position:relative;aspect-ratio:4/5;background:var(--stone);overflow:hidden}
+.hero-pic>img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.tag{position:absolute;left:18px;bottom:18px;background:rgba(250,248,244,.94);padding:12px 16px;display:flex;gap:14px;align-items:center;font-size:14px;max-width:calc(100% - 36px)}
+.tag svg{width:64px;flex:none}
+.tag b{display:block;font:400 22px var(--serif)}
+.tag a{margin-left:auto;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid;white-space:nowrap}
+@media(max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-pic{aspect-ratio:4/4.6}}
+
+.mq{border-block:1px solid var(--line);overflow:hidden;padding:15px 0;background:var(--bg)}
+.mq .row{display:flex;gap:56px;width:max-content;animation:slide 36s linear infinite;font:500 13px var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.mq span{display:inline-flex;gap:56px;align-items:center;white-space:nowrap}
+.mq span::after{content:"✦";color:var(--accent);font-size:11px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+section{padding:clamp(64px,10vw,120px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:38px}
+.sec-head h2{margin-top:12px}
+
+/* shop */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:30px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{flex:none;padding:11px 20px;border:1px solid var(--line);font:500 13px var(--sans);letter-spacing:.06em;text-transform:uppercase;transition:.2s;border-radius:999px}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px 18px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}}
+.prod{display:flex;flex-direction:column}
+.prod.hide{display:none}
+.pimg{position:relative;aspect-ratio:1/1;background:var(--sand);display:grid;place-items:center;overflow:hidden;transition:background .4s}
+.pimg svg{width:84%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.prod:hover .pimg svg{transform:scale(1.07) rotate(-2deg)}
+.badge{position:absolute;left:10px;top:10px;background:var(--bg);font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:5px 8px}
+.quick{position:absolute;left:10px;right:10px;bottom:10px;background:var(--ink);color:var(--bg);padding:13px;font:500 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;text-align:center;transform:translateY(130%);transition:transform .3s}
+.prod:hover .quick,.quick:focus-visible{transform:none}
+@media(hover:none){.quick{transform:none;position:static;margin-top:8px;padding:12px}.pimg{overflow:visible}}
+.pinfo{padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.pname{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.pname b{font:400 25px var(--serif)}
+.pname span{font-weight:500;font-size:15px;white-space:nowrap}
+.ptype{font-size:13px;color:var(--mute)}
+.sw{display:flex;gap:8px;margin-top:4px}
+.sw button{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .2s}
+.sw button.on{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--ink)}
+.sw button:hover{transform:scale(1.15)}
+.cname{font-size:12px;color:var(--mute);margin-left:4px;align-self:center}
+
+/* features */
+.feat{background:var(--ink);color:var(--bg);padding:clamp(46px,7vw,80px) 0}
+.feat .g{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.feat b{display:block;font:400 28px var(--serif);margin-bottom:6px}
+.feat span{opacity:.7;font-size:14px}
+@media(max-width:860px){.feat .g{grid-template-columns:1fr 1fr;gap:30px 16px}}
+
+/* lookbook */
+.look{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+.look figure{position:relative;overflow:hidden;background:var(--stone)}
+.look figure:nth-child(even){margin-top:48px}
+.look img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;transition:transform .8s}
+.look figure:hover img{transform:scale(1.05)}
+.look figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-size:14px;display:flex;justify-content:space-between;align-items:end;gap:8px}
+.look figcaption b{font:400 24px var(--serif)}
+.look figcaption a{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid;white-space:nowrap}
+@media(max-width:900px){.look{grid-template-columns:repeat(2,minmax(0,1fr))}.look figure:nth-child(even){margin-top:30px}}
+
+/* story */
+.story{background:var(--sand)}
+.story .g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,90px);align-items:center}
+.story .pic{aspect-ratio:4/5;overflow:hidden}
+.story .pic img{width:100%;height:100%;object-fit:cover}
+.story h2{margin:14px 0 22px}
+.story p{color:var(--mute);font-size:18px;max-width:30em;margin-bottom:16px}
+.story .nums{display:flex;gap:34px;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+.story .nums b{font:400 44px var(--serif);display:block;line-height:1}
+.story .nums span{font-size:13px;color:var(--mute)}
+@media(max-width:860px){.story .g{grid-template-columns:minmax(0,1fr)}}
+
+/* reviews */
+.rev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rev article{border:1px solid var(--line);padding:30px;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.stars{color:var(--accent);letter-spacing:3px;font-size:15px}
+.rev q{font:400 24px/1.2 var(--serif);quotes:none;flex:1}
+.rev cite{font-style:normal;font-size:13px;color:var(--mute)}
+@media(max-width:860px){.rev{grid-template-columns:minmax(0,1fr)}}
+
+/* instagram */
+.ig .row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.ig img{aspect-ratio:1;width:100%;height:auto;object-fit:cover}
+.ig .row a{overflow:hidden;display:block;position:relative}
+.ig .row a img{transition:transform .6s}.ig .row a:hover img{transform:scale(1.08)}
+@media(max-width:700px){.ig .row{grid-template-columns:repeat(3,minmax(0,1fr))}.ig .row a:nth-child(n+4){display:none}}
+
+/* faq */
+.faq{max-width:820px;margin:0 auto}
+.faq details{border-top:1px solid var(--line);padding:22px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;font:400 28px var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 30px var(--sans);transition:.3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--mute);margin-top:12px;max-width:40em}
+
+/* newsletter + footer */
+.news{background:var(--ink);color:var(--bg);text-align:center;padding:clamp(60px,9vw,100px) 0}
+.news h2{margin:12px 0 28px}
+.news form{display:flex;max-width:480px;margin:0 auto;border:1px solid rgba(250,248,244,.4)}
+.news input{flex:1;background:none;border:0;color:inherit;padding:17px 18px;font:400 16px var(--sans);outline:0;min-width:0}
+.news input::placeholder{color:rgba(250,248,244,.5)}
+.news button{padding:0 26px;background:var(--bg);color:var(--ink);font:500 13px var(--sans);letter-spacing:.1em;text-transform:uppercase}
+.news .lbl{color:rgba(250,248,244,.6)}
+footer{padding:64px 0 30px;background:var(--bg)}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.foot p{color:var(--mute);font-size:15px;max-width:22em;margin-top:12px}
+.foot h4{font:500 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.foot ul{list-style:none;display:grid;gap:9px;font-size:15px}
+.legal{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+@media(max-width:860px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+
+/* drawer + modals + toast */
+.scrim{position:fixed;inset:0;background:rgba(20,20,20,.5);z-index:90;opacity:0;pointer-events:none;transition:.3s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);z-index:95;transform:translateX(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line)}
+.dh h3{font-size:30px}
+.dh button{width:42px;height:42px;font-size:20px}
+.dfree{padding:14px 22px;background:var(--sand);font-size:13px}
+.dfree .bar{height:4px;background:rgba(20,20,20,.12);margin-top:8px}
+.dfree .bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .4s}
+.dbody{flex:1;overflow:auto;padding:6px 22px}
+.empty{padding:60px 0;text-align:center;color:var(--mute)}
+.empty b{display:block;font:400 30px var(--serif);color:var(--ink);margin-bottom:8px}
+.line{display:grid;grid-template-columns:84px 1fr auto;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:center}
+.line .th{background:var(--sand);aspect-ratio:1;display:grid;place-items:center}
+.line .th svg{width:86%}
+.line b{font:400 22px var(--serif);display:block}
+.line small{color:var(--mute);font-size:13px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}
+.qty button{width:32px;height:32px;font-size:16px}
+.qty span{min-width:26px;text-align:center;font-size:14px}
+.line .pr{font-weight:500;align-self:start}
+.df{padding:20px 22px calc(20px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);display:grid;gap:12px}
+.df .sub{display:flex;justify-content:space-between;font-size:17px}
+.df .sub b{font-weight:600}
+.df small{color:var(--mute);font-size:13px}
+.df .btn{width:100%}
+.df .btn[disabled]{opacity:.35;pointer-events:none}
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:16px;background:rgba(20,20,20,.55);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.modal.open{display:grid}
+.sheet{background:var(--bg);max-width:620px;width:100%;max-height:calc(100svh - 32px);overflow:auto;padding:clamp(24px,5vw,40px);position:relative}
+.sheet h3{font-size:clamp(32px,5vw,44px);margin:10px 0 14px}
+.sheet p{color:var(--mute)}
+.sheet h5{font:500 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:22px 0 10px}
+.sheet ul{list-style:none;display:grid;gap:8px}
+.sheet li{display:flex;gap:10px}
+.sheet li::before{content:"✓";font-weight:700}
+.sheet .addon li::before{content:"+";color:var(--accent)}
+.sheet .x{position:absolute;right:12px;top:12px;width:42px;height:42px;font-size:20px}
+.sheet .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+pre{white-space:pre-wrap;background:var(--sand);padding:18px;font:400 14px/1.5 var(--sans);margin:16px 0}
+#toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:14px 22px;font-size:14px;z-index:120;transition:.35s;max-width:calc(100% - 32px);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.mq .row{animation:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="proto"><div class="wrap"><span><b>Concept prototype by SAUTiQ.</b> Brand, products and prices are samples.</span><button type="button" data-open="incl">What's included</button></div></div>
+<div class="ann">Free delivery in Accra over GHS 400 · Pay on delivery</div>
+
+<header>
+  <div class="wrap nav">
+    <ul>
+      <li><a href="#shop">Shop</a></li><li><a href="#lookbook">Lookbook</a></li><li><a href="#story">Our story</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <a href="#top" class="logo">Sol <i>&amp;</i> Frame</a>
+    <div class="r">
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="count" id="count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding-top:clamp(28px,5vw,60px)">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="lbl">New collection · Season 01</span>
+      <h1>See the world in <em>better</em> frames.</h1>
+      <p>Bold shapes, honest prices and lenses that protect your eyes. Designed for the sun and the people who live under it.</p>
+      <div class="row"><a href="#shop" class="btn btn-dark">Shop the collection</a><a href="#lookbook" class="btn btn-line">View lookbook</a></div>
+    </div>
+    <div class="hero-pic">
+      <img src="look-1.jpg" alt="Woman in black cat-eye sunglasses" width="900" height="1350" fetchpriority="high">
+      <div class="tag"><div id="heroTag" style="width:64px"></div><span><b>Nia</b>Cat-eye · Noir</span><a href="#shop" data-pick="nia">Shop</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="row">
+  <span>UV400 protection</span><span>Hard case included</span><span>Pay on delivery</span><span>12-month warranty</span><span>Free delivery in Accra</span>
+  <span>UV400 protection</span><span>Hard case included</span><span>Pay on delivery</span><span>12-month warranty</span><span>Free delivery in Accra</span>
+</div></div>
+
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="lbl">The collection</span><h2>Frames for <em>every</em> face.</h2></div><span class="lbl" id="shown"></span></div>
+    <div class="filters rv" id="filters" role="group" aria-label="Filter products"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<div class="feat"><div class="wrap g">
+  <div><b>UV400</b><span>Full protection from harmful rays</span></div>
+  <div><b>Polarised</b><span>Cuts glare on the road and water</span></div>
+  <div><b>Hard case</b><span>Free with every pair</span></div>
+  <div><b>12 months</b><span>Warranty on every frame</span></div>
+</div></div>
+
+<section id="lookbook">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="lbl">Lookbook</span><h2>Worn <em>everywhere.</em></h2></div><a href="#shop" class="btn btn-line">Shop the looks</a></div>
+    <div class="look">
+      <figure class="rv"><img src="look-2.jpg" alt="Woman in green frames" loading="lazy" width="900" height="1125"><figcaption><span><b>Esi</b><br>Emerald</span><a href="#shop" data-pick="esi">Shop</a></figcaption></figure>
+      <figure class="rv"><img src="look-3.jpg" alt="Woman in a beret and gold sunglasses" loading="lazy" width="900" height="1350"><figcaption><span><b>Yaw</b><br>Gold aviator</span><a href="#shop" data-pick="yaw">Shop</a></figcaption></figure>
+      <figure class="rv"><img src="look-4.jpg" alt="Man in narrow black sunglasses" loading="lazy" width="900" height="1350"><figcaption><span><b>Kwame</b><br>Noir</span><a href="#shop" data-pick="kwame">Shop</a></figcaption></figure>
+      <figure class="rv"><img src="look-5.jpg" alt="Woman in sunglasses among palm leaves" loading="lazy" width="900" height="1350"><figcaption><span><b>Ama</b><br>Round, Noir</span><a href="#shop" data-pick="ama">Shop</a></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap g">
+    <div class="pic rv"><img src="look-5.jpg" alt="Woman in sunglasses among palm leaves" loading="lazy" width="900" height="1350" style="object-position:50% 40%"></div>
+    <div class="rv">
+      <span class="lbl">Our story</span>
+      <h2>Made for <em>sun, style</em> and the city.</h2>
+      <p>We started with a simple idea: great eyewear should not cost a fortune or take weeks to arrive. So we design in Accra, test every pair and deliver fast.</p>
+      <p>Every frame is built to be worn daily, with real UV protection and a fit that works for our faces.</p>
+      <div class="nums"><div><b>8K+</b><span>happy customers</span></div><div><b>48h</b><span>delivery in Accra</span></div><div><b>4.9</b><span>average rating</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="lbl">Reviews</span><h2>Loved by <em>you.</em></h2></div></div>
+    <div class="rev">
+      <article class="rv"><div class="stars">★★★★★</div><q>The Nia is stunning. Got compliments the same day, and the case feels premium.</q><cite>Sample review · Accra</cite></article>
+      <article class="rv"><div class="stars">★★★★★</div><q>Ordered on Monday, paid on delivery Wednesday. Smooth from start to finish.</q><cite>Sample review · Kumasi</cite></article>
+      <article class="rv"><div class="stars">★★★★★</div><q>Finally sunglasses that fit my face and my budget. Already ordered a second pair.</q><cite>Sample review · Tema</cite></article>
+    </div>
+  </div>
+</section>
+
+<section class="ig" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="lbl">@solandframe</span><h2>Follow the <em>look.</em></h2></div><a href="#" class="btn btn-line" data-soon="Your real Instagram feed would show here.">Follow us</a></div>
+    <div class="row rv">
+      <a href="#" data-soon="Your real Instagram feed would show here."><img src="look-1.jpg" alt="" loading="lazy" width="900" height="1350"></a>
+      <a href="#" data-soon="Your real Instagram feed would show here."><img src="look-3.jpg" alt="" loading="lazy" width="900" height="1350" style="object-position:50% 35%"></a>
+      <a href="#" data-soon="Your real Instagram feed would show here."><img src="look-4.jpg" alt="" loading="lazy" width="900" height="1350" style="object-position:50% 30%"></a>
+      <a href="#" data-soon="Your real Instagram feed would show here."><img src="look-2.jpg" alt="" loading="lazy" width="900" height="1125"></a>
+      <a href="#" data-soon="Your real Instagram feed would show here."><img src="look-5.jpg" alt="" loading="lazy" width="900" height="1350" style="object-position:50% 40%"></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:clamp(40px,6vw,70px)">
+  <div class="wrap">
+    <div class="sec-head rv" style="justify-content:center;text-align:center"><div><span class="lbl">Good to know</span><h2>Questions, <em>answered.</em></h2></div></div>
+    <div class="faq rv">
+      <details><summary>How does delivery work?</summary><p>Orders in Accra arrive within 48 hours, and free over GHS 400. We deliver across Ghana within 3 to 5 days.</p></details>
+      <details><summary>Can I pay on delivery?</summary><p>Yes. Pay by Mobile Money or cash when your order arrives, so there is no risk.</p></details>
+      <details><summary>Can I return or swap a pair?</summary><p>Within 30 days, unworn and in the case. We'll swap it or refund you, no stress.</p></details>
+      <details><summary>Do you make prescription lenses?</summary><p>Our blue-light frames can be fitted with prescription lenses through our partner opticians. Ask us on WhatsApp.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="news"><div class="wrap">
+  <span class="lbl">Join the list</span>
+  <h2>Get <em>10% off</em> your first pair.</h2>
+  <form id="newsForm"><input type="email" required placeholder="Your email address" aria-label="Email address"><button type="submit">Subscribe</button></form>
+</div></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a href="#top" class="logo" style="text-align:left;display:block">Sol <i>&amp;</i> Frame</a><p>A sample eyewear brand created to show what a premium online store can look like.</p></div>
+      <div><h4>Shop</h4><ul><li><a href="#shop">All frames</a></li><li><a href="#lookbook">Lookbook</a></li><li><a href="#story">Our story</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="#faq">Delivery</a></li><li><a href="#faq">Returns</a></li><li><a href="#faq">Prescriptions</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li>Accra, Ghana</li><li>hello@solandframe.com</li><li>+233 00 000 0000</li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Sol &amp; Frame (sample)</span><span>Concept store by <a href="../" style="text-decoration:underline">SAUTiQ</a></span></div>
+  </div>
+</footer>
+
+<!-- cart -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="dh"><h3>Your cart</h3><button id="drawerX" aria-label="Close cart">✕</button></div>
+  <div class="dfree" id="dfree"></div>
+  <div class="dbody" id="dbody"></div>
+  <div class="df"><div class="sub"><span>Subtotal</span><b id="subtotal">GHS 0</b></div><small>Delivery and payment are arranged on WhatsApp. Pay on delivery.</small><button class="btn btn-dark" id="orderBtn" disabled>Order on WhatsApp</button></div>
+</aside>
+
+<div class="modal" id="incl" role="dialog" aria-modal="true" aria-label="What's included">
+  <div class="sheet">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <span class="lbl">Online store starter pack</span>
+    <h3>Start with the essentials. Add more as you grow.</h3>
+    <p>This store is the starter pack: it already sells, looks premium and works beautifully on a phone.</p>
+    <h5>Included in the starter pack</h5>
+    <ul><li>Home page, product collection and lookbook</li><li>Product colours, filters and a working cart</li><li>Orders sent straight to your WhatsApp</li><li>Reviews, FAQ and newsletter sign-up</li><li>Fast loading and easy-to-share links</li></ul>
+    <h5>Pages and features you can add</h5>
+    <ul class="addon"><li>A full page for every product with photo gallery</li><li>Live Mobile Money and card payments</li><li>Discount codes and gift cards</li><li>Order tracking and customer accounts</li><li>Blog, press and influencer collaborations</li><li>Stock and sales dashboard for you</li></ul>
+    <div class="ctas"><a class="btn btn-dark" href="https://wa.me/233593275980?text=Hi%20SAUTiQ%2C%20I%20saw%20the%20eyewear%20store%20prototype%20and%20I%27d%20like%20a%20quote." target="_blank" rel="noopener">Talk to SAUTiQ</a><button class="btn btn-line" data-close>Back to the store</button></div>
+  </div>
+</div>
+<div class="modal" id="order" role="dialog" aria-modal="true" aria-label="Order preview">
+  <div class="sheet">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <span class="lbl">Demo only</span>
+    <h3>This is the order your customer sends.</h3>
+    <p>On the live store this opens WhatsApp to the owner with the message already written. Nothing is sent here.</p>
+    <pre id="orderText"></pre>
+    <div class="ctas"><button class="btn btn-dark" data-close>Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))},B=document.body;
+var FREE=400;
+/* pixel-perfect vector glasses */
+var SH={
+ round:"M23 35a22 22 0 1 0 44 0a22 22 0 1 0 -44 0z",
+ square:"M32 17h26a9 9 0 0 1 9 9v18a9 9 0 0 1 -9 9H32a9 9 0 0 1 -9 -9V26a9 9 0 0 1 9 -9z",
+ cat:"M19 13Q21 13 34 17L61 22Q70 24 68 34Q65 52 45 52Q25 52 22 38Q19 26 19 13Z",
+ aviator:"M22 22Q22 18 30 18L62 18Q68 18 68 24Q66 52 44 52Q24 50 22 22Z",
+ oversize:"M38 14h14a18 18 0 0 1 18 18v6a18 18 0 0 1 -18 18H38a18 18 0 0 1 -18 -18v-6a18 18 0 0 1 18 -18z",
+ wayfarer:"M22 20L66 18Q70 18 69 24L66 44Q64 52 54 52L34 52Q26 52 25 44Z"
+};
+var uid=0;
+function glasses(shape,c,wire){var id="g"+(++uid),sw=wire?2.4:5,lens=c.lens;
+ var lensO=c.clear?.55:1;
+ var L='<path d="'+SH[shape]+'" fill="'+lens+'" fill-opacity="'+lensO+'" stroke="'+c.frame+'" stroke-width="'+sw+'" stroke-linejoin="round"/>'+
+  '<path d="'+SH[shape]+'" fill="url(#'+id+')" stroke="none"/>';
+ return '<svg viewBox="0 0 160 70" role="img" aria-hidden="true"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'+
+ '<g>'+L+'</g><g transform="translate(160 0) scale(-1 1)">'+L+'</g>'+
+ '<path d="M67 27Q80 18 93 27" fill="none" stroke="'+c.frame+'" stroke-width="'+(wire?2.2:4)+'" stroke-linecap="round"/>'+
+ '<path d="M21 26L7 23M139 26L153 23" stroke="'+c.frame+'" stroke-width="'+(wire?2:4)+'" stroke-linecap="round"/></svg>'}
+var P=[
+ {id:"nia",name:"Nia",type:"Cat-eye sunglasses",price:320,shape:"cat",tags:["sunglasses","cat-eye"],badge:"Bestseller",c:[{n:"Noir",frame:"#141414",lens:"#2a2a2a"},{n:"Tortoise",frame:"#8a4b21",lens:"#5b3a2b"},{n:"Rosé",frame:"#d79a96",lens:"#7a4a53"}]},
+ {id:"kofi",name:"Kofi",type:"Square sunglasses",price:280,shape:"square",tags:["sunglasses","square"],c:[{n:"Noir",frame:"#141414",lens:"#26302c"},{n:"Olive",frame:"#5d6c3b",lens:"#3a4630"},{n:"Sand",frame:"#d9cdb4",lens:"#6b5a44"}]},
+ {id:"ama",name:"Ama",type:"Round sunglasses",price:260,shape:"round",wire:1,tags:["sunglasses","round"],c:[{n:"Gold",frame:"#c9a24b",lens:"#3d3a2a"},{n:"Silver",frame:"#b7bbc0",lens:"#27384a"},{n:"Noir",frame:"#141414",lens:"#222"}]},
+ {id:"yaw",name:"Yaw",type:"Aviator sunglasses",price:350,shape:"aviator",wire:1,tags:["sunglasses","aviator"],badge:"New",c:[{n:"Gold / Green",frame:"#caa550",lens:"#2f4a3a"},{n:"Gold / Brown",frame:"#caa550",lens:"#5a3b25"},{n:"Silver / Blue",frame:"#b7bbc0",lens:"#2c4766"}]},
+ {id:"esi",name:"Esi",type:"Oversized sunglasses",price:340,shape:"oversize",tags:["sunglasses"],c:[{n:"Emerald",frame:"#1f6b55",lens:"#243a33"},{n:"Cream",frame:"#efe6d3",lens:"#4d3b2a"},{n:"Noir",frame:"#141414",lens:"#2a2a2a"}]},
+ {id:"kwame",name:"Kwame",type:"Classic sunglasses",price:270,shape:"wayfarer",tags:["sunglasses"],c:[{n:"Noir",frame:"#141414",lens:"#262626"},{n:"Havana",frame:"#7b4a1e",lens:"#4a3524"},{n:"Navy",frame:"#1d2b4a",lens:"#22303f"}]},
+ {id:"efua",name:"Efua",type:"Blue-light glasses",price:240,shape:"round",tags:["blue-light","round"],badge:"Screen-safe",c:[{n:"Tortoise",frame:"#8a4b21",lens:"#d6e6f3",clear:1},{n:"Noir",frame:"#141414",lens:"#d6e6f3",clear:1},{n:"Clear",frame:"#cfc7b8",lens:"#d6e6f3",clear:1}]},
+ {id:"kojo",name:"Kojo",type:"Blue-light glasses",price:230,shape:"square",tags:["blue-light","square"],c:[{n:"Noir",frame:"#141414",lens:"#d6e6f3",clear:1},{n:"Navy",frame:"#1d2b4a",lens:"#d6e6f3",clear:1},{n:"Clear",frame:"#e7e1d6",lens:"#d6e6f3",clear:1}]}
+];
+var CART=[];/* {id,ci,q} */
+function money(n){return "GHS "+n.toLocaleString("en-GH")}
+function prod(id){return P.filter(function(p){return p.id===id})[0]}
+/* grid */
+var grid=$("#grid"),sel={};
+P.forEach(function(p){sel[p.id]=0;var d=document.createElement("article");d.className="prod rv";d.dataset.tags=p.tags.join(" ");d.id="p-"+p.id;
+ d.innerHTML='<div class="pimg">'+(p.badge?'<span class="badge">'+p.badge+'</span>':'')+'<span class="art"></span><button class="quick" data-add="'+p.id+'">Add to cart</button></div>'+
+ '<div class="pinfo"><div class="pname"><b>'+p.name+'</b><span>'+money(p.price)+'</span></div><div class="ptype">'+p.type+'</div><div class="sw">'+p.c.map(function(c,i){return '<button class="'+(i?'':'on')+'" data-ci="'+i+'" aria-label="'+c.n+'" style="background:'+c.frame+'"></button>'}).join("")+'<span class="cname">'+p.c[0].n+'</span></div></div>';
+ grid.appendChild(d);paint(p,d)});
+function paint(p,d){$(".art",d).outerHTML='<span class="art" style="display:contents">'+glasses(p.shape,p.c[sel[p.id]],p.wire)+'</span>';$(".cname",d).textContent=p.c[sel[p.id]].n}
+grid.addEventListener("click",function(e){var b=e.target.closest("[data-ci]");if(b){var d=b.closest(".prod"),p=prod(d.id.slice(2));sel[p.id]=+b.dataset.ci;$$("[data-ci]",d).forEach(function(x){x.classList.toggle("on",x===b)});paint(p,d);return}
+ var a=e.target.closest("[data-add]");if(a)add(a.dataset.add)});
+$("#heroTag").innerHTML=glasses("cat",prod("nia").c[0],0);
+/* filters */
+var F=[["all","All"],["sunglasses","Sunglasses"],["blue-light","Blue-light"],["round","Round"],["cat-eye","Cat-eye"],["aviator","Aviator"],["square","Square"]];
+var fb=$("#filters");F.forEach(function(f,i){var b=document.createElement("button");b.textContent=f[1];b.dataset.f=f[0];if(!i)b.className="on";fb.appendChild(b)});
+function filt(f){var n=0;$$(".prod").forEach(function(d){var ok=f==="all"||d.dataset.tags.split(" ").indexOf(f)>-1;d.classList.toggle("hide",!ok);if(ok)n++});$$("#filters button").forEach(function(b){b.classList.toggle("on",b.dataset.f===f)});$("#shown").textContent=n+" frames"}
+fb.addEventListener("click",function(e){var b=e.target.closest("button");if(b)filt(b.dataset.f)});filt("all");
+$$("[data-pick]").forEach(function(a){a.addEventListener("click",function(){setTimeout(function(){var d=$("#p-"+a.dataset.pick);if(d){d.scrollIntoView({behavior:"smooth",block:"center"});d.style.outline="2px solid var(--accent)";setTimeout(function(){d.style.outline=""},1600)}},60)})});
+/* cart */
+function key(i){return i.id+":"+i.ci}
+function add(id){var p=prod(id),ci=sel[id],it=CART.filter(function(i){return i.id===id&&i.ci===ci})[0];if(it)it.q++;else CART.push({id:id,ci:ci,q:1});render();openCart();toast(p.name+" ("+p.c[ci].n+") added")}
+function total(){return CART.reduce(function(s,i){return s+prod(i.id).price*i.q},0)}
+function render(){var n=CART.reduce(function(s,i){return s+i.q},0),t=total(),c=$("#count");c.textContent=n;c.classList.toggle("on",n>0);
+ $("#subtotal").textContent=money(t);$("#orderBtn").disabled=!n;
+ var left=Math.max(0,FREE-t);$("#dfree").innerHTML=(left?'Add <b>'+money(left)+'</b> more for free delivery in Accra':'You have <b>free delivery</b> in Accra')+'<div class="bar"><i style="width:'+Math.min(100,t/FREE*100)+'%"></i></div>';
+ $("#dbody").innerHTML=n?CART.map(function(i,ix){var p=prod(i.id),c=p.c[i.ci];return '<div class="line"><div class="th">'+glasses(p.shape,c,p.wire)+'</div><div><b>'+p.name+'</b><small>'+c.n+'</small><br><div class="qty"><button data-q="'+ix+':-1" aria-label="Less">−</button><span>'+i.q+'</span><button data-q="'+ix+':1" aria-label="More">+</button></div></div><div class="pr">'+money(p.price*i.q)+'</div></div>'}).join(""):'<div class="empty"><b>Your cart is empty</b>Add a pair you love.</div>'}
+$("#dbody").addEventListener("click",function(e){var b=e.target.closest("[data-q]");if(!b)return;var a=b.dataset.q.split(":"),i=CART[+a[0]];i.q+=+a[1];if(i.q<1)CART.splice(+a[0],1);render()});
+function openCart(f){if(f===false){$("#drawer").classList.remove("on");$("#scrim").classList.remove("on");$("#drawer").setAttribute("aria-hidden","true");B.style.overflow="";return}
+ $("#drawer").classList.add("on");$("#scrim").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");B.style.overflow="hidden"}
+$("#cartBtn").onclick=function(){openCart()};$("#drawerX").onclick=function(){openCart(false)};$("#scrim").onclick=function(){openCart(false)};
+$("#orderBtn").onclick=function(){var lines=CART.map(function(i){var p=prod(i.id);return "• "+i.q+" × "+p.name+" ("+p.c[i.ci].n+") – "+money(p.price*i.q)}),t=total();
+ $("#orderText").textContent="Hi Sol & Frame, I'd like to order:\n"+lines.join("\n")+"\n\nTotal: "+money(t)+(t>=FREE?" (free delivery in Accra)":"")+"\nName:\nDelivery area:";openCart(false);open("order")};
+render();
+/* toast + modals + menu */
+var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on")},2400)}
+$$("[data-soon]").forEach(function(e){e.addEventListener("click",function(ev){ev.preventDefault();toast(e.getAttribute("data-soon"))})});
+function open(id){$("#"+id).classList.add("open");B.style.overflow="hidden"}
+function closeAll(){$$(".modal.open").forEach(function(m){m.classList.remove("open")});B.style.overflow=""}
+$$("[data-open]").forEach(function(e){e.addEventListener("click",function(){open(e.getAttribute("data-open"))})});
+$$("[data-close]").forEach(function(e){e.addEventListener("click",closeAll)});
+$$(".modal").forEach(function(m){m.addEventListener("click",function(ev){if(ev.target===m)closeAll()})});
+addEventListener("keydown",function(e){if(e.key==="Escape"){closeAll();openCart(false);menu(false)}});
+var bu=$("#burger");function menu(f){B.classList.toggle("menu-open",f);bu.setAttribute("aria-expanded",B.classList.contains("menu-open"));B.style.overflow=B.classList.contains("menu-open")?"hidden":""}
+bu.onclick=function(){menu()};$$(".nav ul a").forEach(function(a){a.addEventListener("click",function(){menu(false)})});
+$("#newsForm").addEventListener("submit",function(e){e.preventDefault();toast("Thank you! (Demo: nothing was sent.)");e.target.reset()});
+/* reveal */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+$$(".rv").forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
