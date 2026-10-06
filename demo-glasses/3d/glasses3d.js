@@ -1,12 +1,13 @@
-/* Procedural 3D sunglasses + a small drag-to-rotate viewer. Needs ./three-lite.js */
+/* Procedural 3D acetate sunglasses (chunky, glossy, foldable) + a drag-to-rotate viewer. Needs ./three-lite.js */
 import * as T from './three-lite.js';
 
 const V2 = (x, y) => new T.Vector2(x, y);
 const lerp = (a, b, t) => a + (b - a) * t;
-const smooth = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
 
 /* ---------- lens contours (right lens, local coords, +x = temple side) ---------- */
-function superellipse(n, a, b, N = 140) {
+function superellipse(n, a, b, N = 160) {
   const pts = [];
   for (let i = 0; i < N; i++) {
     const t = (i / N) * Math.PI * 2, c = Math.cos(t), s = Math.sin(t);
@@ -15,13 +16,13 @@ function superellipse(n, a, b, N = 140) {
   return pts;
 }
 export const STYLES = {
-  round:    { a: 24, b: 24, make: () => superellipse(2, 24, 24) },
-  panto:    { a: 25, b: 22, make: () => superellipse(2, 25, 22).map(([x, y]) => [x, y + 0.5 * Math.max(0, x) / 25]) },
-  square:   { a: 27, b: 20, make: () => superellipse(3.6, 27, 20).map(([x, y]) => [x * (1 + 0.06 * y / 20), y - 0.06 * x]) },
-  wayfarer: { a: 28, b: 20, make: () => superellipse(3.0, 28, 20).map(([x, y]) => { const u = (x + 28) / 56; return [x * (1 + 0.1 * Math.max(0, y) / 20), y * (y < 0 ? 0.9 : 1) + 2.5 * u]; }) },
-  cat:      { a: 28, b: 20, make: () => superellipse(3.2, 28, 19).map(([x, y]) => { const u = (x + 28) / 56, up = Math.pow(u, 2.6) * 15; return [x * (1 + 0.05 * u), y < 0 ? y * (1 - 0.2 * u) + up * .55 : y + up]; }) },
-  aviator:  { a: 29, b: 24, make: () => superellipse(2.5, 29, 24).map(([x, y]) => [x * (1 - 0.2 * Math.max(0, -y / 24)) + 1, y < 0 ? y * 1.12 : y]) },
-  oversize: { a: 31, b: 27, make: () => superellipse(3.0, 31, 27).map(([x, y]) => [x, y + 2.5 * (x + 31) / 62]) },
+  round:    { a: 22.5, b: 22.5, make: () => superellipse(2, 22.5, 22.5) },
+  rect:     { a: 31, b: 15, make: () => superellipse(5, 31, 15).map(([x, y]) => [x, y + 1.2 * (x + 31) / 62 - 0.8]) },
+  wayfarer: { a: 27, b: 19.5, make: () => superellipse(3.2, 27, 19.5).map(([x, y]) => { const u = (x + 27) / 54; return [x * (1 + 0.1 * Math.max(0, y) / 19.5), (y < 0 ? y * .88 : y) + 3 * u]; }) },
+  square:   { a: 25.5, b: 22, make: () => superellipse(4.4, 25.5, 22).map(([x, y]) => [x, y - 0.04 * x]) },
+  angular:  { a: 27, b: 20, make: () => superellipse(7, 27, 20).map(([x, y]) => { const u = (x + 27) / 54; return [x, y * (y < 0 ? 1 - .18 * u : 1) + 5 * Math.pow(u, 2)]; }) },
+  cat:      { a: 28, b: 20, make: () => superellipse(3.0, 28, 19).map(([x, y]) => { const u = (x + 28) / 56, up = Math.pow(u, 2.5) * 14; return [x * (1 + 0.05 * u), y < 0 ? y * (1 - 0.16 * u) + up * .5 : y + up]; }) },
+  butterfly:{ a: 31, b: 25, make: () => superellipse(2.7, 31, 25).map(([x, y]) => { const u = (x + 31) / 62, up = Math.pow(u, 2.2) * 9; return [x, y < 0 ? y * (1 - .12 * u) + up * .4 : y + up]; }) },
 };
 
 function offsetContour(pts, thick) {
@@ -29,8 +30,7 @@ function offsetContour(pts, thick) {
   for (let i = 0; i < n; i++) {
     const p = pts[i], a = pts[(i - 1 + n) % n], b = pts[(i + 1) % n];
     let dx = b[0] - a[0], dy = b[1] - a[1];
-    const l = Math.hypot(dx, dy) || 1;
-    dx /= l; dy /= l;
+    const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l;
     const t = typeof thick === 'function' ? thick(p, i / n) : thick;
     out.push([p[0] + dy * t, p[1] - dx * t]);
   }
@@ -38,60 +38,74 @@ function offsetContour(pts, thick) {
 }
 
 /* ---------- materials ---------- */
-let tortoiseTex = null;
-function tortoiseTexture() {
-  if (tortoiseTex) return tortoiseTex;
-  const c = document.createElement('canvas'); c.width = c.height = 512;
-  const g = c.getContext('2d');
-  g.fillStyle = '#8c4c15'; g.fillRect(0, 0, 512, 512);
-  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < 70; i++) {
-    const x = rnd() * 512, y = rnd() * 512, r = 18 + rnd() * 60;
-    const dark = rnd() < .62;
-    const grd = g.createRadialGradient(x, y, 0, x, y, r);
-    grd.addColorStop(0, dark ? 'rgba(30,12,4,.95)' : 'rgba(214,150,56,.8)');
-    grd.addColorStop(1, 'rgba(0,0,0,0)');
-    g.fillStyle = grd;
-    for (const ox of [-512, 0, 512]) for (const oy of [-512, 0, 512]) { g.save(); g.translate(ox, oy); g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.restore(); }
-  }
-  tortoiseTex = new T.CanvasTexture(c);
-  tortoiseTex.wrapS = tortoiseTex.wrapT = T.RepeatWrapping;
-  tortoiseTex.repeat.set(1 / 70, 1 / 70);
-  tortoiseTex.colorSpace = T.SRGBColorSpace;
-  tortoiseTex.anisotropy = 4;
-  return tortoiseTex;
+const texCache = {};
+function canvasTex(key, draw, w = 512, h = 512) {
+  if (texCache[key]) return texCache[key];
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  draw(c.getContext('2d'), w, h);
+  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8;
+  return (texCache[key] = t);
+}
+function tortoiseDraw(base, dark, light, seed0 = 7) {
+  return (g, w, h) => {
+    g.fillStyle = base; g.fillRect(0, 0, w, h);
+    let seed = seed0; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 34; i++) {
+      const x = rnd() * w, y = rnd() * h, r = 46 + rnd() * 120, isDark = rnd() < .66;
+      const grd = g.createRadialGradient(x, y, 0, x, y, r);
+      grd.addColorStop(0, isDark ? dark : light); grd.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = grd;
+      for (const ox of [-w, 0, w]) for (const oy of [-h, 0, h]) { g.save(); g.translate(ox, oy); g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.restore(); }
+    }
+  };
 }
 export function frameMaterial(f) {
-  const base = { roughness: .3, metalness: 0, clearcoat: 1, clearcoatRoughness: .06, envMapIntensity: 1 };
+  const base = { roughness: .22, metalness: 0, clearcoat: 1, clearcoatRoughness: .04, envMapIntensity: 1.15, sheen: 0 };
   switch (f.type) {
-    case 'tortoise': return new T.MeshPhysicalMaterial({ ...base, map: tortoiseTexture(), color: 0xffffff });
-    case 'crystal': return new T.MeshPhysicalMaterial({ ...base, color: f.color, transmission: .92, thickness: 5, ior: 1.49, roughness: .12, attenuationColor: new T.Color(f.deep || f.color), attenuationDistance: 14, envMapIntensity: 1.2 });
+    case 'tortoise': {
+      const t = canvasTex('tort', tortoiseDraw('#7a3f10', 'rgba(26,10,3,.95)', 'rgba(206,138,48,.85)'));
+      t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(1 / 95, 1 / 95);
+      return new T.MeshPhysicalMaterial({ ...base, map: t, color: 0xffffff });
+    }
+    case 'duo': { /* tortoise on top fading to a smoky translucent look at the bottom */
+      const t = canvasTex('duo', (g, w, h) => {
+        tortoiseDraw('#7a3f10', 'rgba(26,10,3,.95)', 'rgba(206,138,48,.85)', 11)(g, w, h);
+        const grd = g.createLinearGradient(0, h * .34, 0, h * .8);
+        grd.addColorStop(0, 'rgba(84,70,64,0)'); grd.addColorStop(1, 'rgba(112,100,98,.96)');
+        g.fillStyle = grd; g.fillRect(0, 0, w, h);
+      });
+      t.wrapS = T.RepeatWrapping; t.wrapT = T.ClampToEdgeWrapping; t.repeat.set(1 / 100, 1 / 62); t.offset.set(.5, .5);
+      return new T.MeshPhysicalMaterial({ ...base, map: t, color: 0xffffff });
+    }
+    case 'crystal': return new T.MeshPhysicalMaterial({ ...base, color: f.color, transmission: .9, thickness: 7, ior: 1.5, roughness: .08, attenuationColor: new T.Color(f.deep || f.color), attenuationDistance: 10, envMapIntensity: 1.3 });
     case 'metal': return new T.MeshPhysicalMaterial({ color: f.color, metalness: 1, roughness: f.rough ?? .2, clearcoat: .3, envMapIntensity: 1.4 });
-    default: return new T.MeshPhysicalMaterial({ ...base, color: f.color, roughness: f.rough ?? .32 });
+    default: return new T.MeshPhysicalMaterial({ ...base, color: f.color, roughness: f.rough ?? .24 });
   }
 }
+function templeMaterial(f) {
+  if (f.type === 'tortoise') { const t = canvasTex('tortT', tortoiseDraw('#6d3510', 'rgba(24,9,3,.95)', 'rgba(190,124,40,.8)', 3)); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(2, 2); return new T.MeshPhysicalMaterial({ map: t, roughness: .22, clearcoat: 1, clearcoatRoughness: .04, envMapIntensity: 1.1 }); }
+  if (f.type === 'duo') return new T.MeshPhysicalMaterial({ color: 0x3a2412, roughness: .22, clearcoat: 1, clearcoatRoughness: .04, envMapIntensity: 1.1 });
+  return frameMaterial(f);
+}
 function lensMaterial(l) {
-  const c = new T.Color(l.color);
   return new T.MeshPhysicalMaterial({
-    color: 0xffffff, vertexColors: true, transparent: true, opacity: l.opacity ?? .82, roughness: l.mirror ? .08 : .05,
-    metalness: l.mirror ? .85 : 0, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: l.mirror ? 1.8 : 1.4, side: T.DoubleSide, depthWrite: false,
-    userData: { c },
+    color: 0xffffff, vertexColors: true, transparent: true, opacity: l.opacity ?? .9, roughness: l.mirror ? .06 : .03,
+    metalness: l.mirror ? .9 : 0, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: l.mirror ? 2 : 1.6,
+    iridescence: l.mirror ? .7 : .25, iridescenceIOR: 1.6, side: T.DoubleSide, depthWrite: false,
   });
 }
+const metalMat = (c, r = .2) => new T.MeshPhysicalMaterial({ color: c, metalness: 1, roughness: r, envMapIntensity: 1.4 });
 
 /* ---------- builders ---------- */
-function ringCurve(pts, cx, z) { return new T.CatmullRomCurve3(pts.map(([x, y]) => new T.Vector3(x + cx, y, z)), true, 'centripetal'); }
-
-function sweepTube(points, sx, sy, r0, r1, radial = 14, segs = 80, tension = .5) {
-  const curve = new T.CatmullRomCurve3(points.map((p) => new T.Vector3(...p)), false, 'catmullrom', tension);
+function sweepTube(points, sx, sy, r0, r1, radial = 16, segs = 90) {
+  const curve = new T.CatmullRomCurve3(points.map((p) => new T.Vector3(...p)), false, 'catmullrom', .5);
   const g = new T.TubeGeometry(curve, segs, 1, radial, false);
-  const pos = g.attributes.position, S = segs + 1, R = radial + 1;
-  for (let i = 0; i < S; i++) {
-    const u = i / segs, c = curve.getPointAt(u), k = lerp(r0, r1, u);
+  const pos = g.attributes.position, R = radial + 1;
+  for (let i = 0; i <= segs; i++) {
+    const u = i / segs, c = curve.getPointAt(u), k = lerp(r0, r1, smooth(u));
     for (let j = 0; j < R; j++) {
       const idx = i * R + j, v = new T.Vector3().fromBufferAttribute(pos, idx).sub(c);
-      v.x *= sx * k; v.y *= sy * k;
-      pos.setXYZ(idx, c.x + v.x, c.y + v.y, c.z + v.z * ((sx + sy) / 2) * k);
+      pos.setXYZ(idx, c.x + v.x * sx * k, c.y + v.y * sy * k, c.z + v.z * ((sx + sy) / 2) * k);
     }
   }
   g.computeVertexNormals();
@@ -101,96 +115,124 @@ function sweepTube(points, sx, sy, r0, r1, radial = 14, segs = 80, tension = .5)
 export function buildGlasses(spec) {
   const st = STYLES[spec.shape];
   const group = new T.Group();
-  const fm = frameMaterial(spec.frame);
-  const wire = spec.build === 'wire';
+  const fm = frameMaterial(spec.frame), tm = templeMaterial(spec.frame);
   const inner = st.make();
-  const bridgeGap = wire ? 8 : 9;                           /* half gap between rims */
-  const rimT = wire ? 0 : (spec.rim ?? 4.4);
-  const cx = bridgeGap + st.a + rimT;                       /* right lens centre x */
-  const D = 5.4;                                            /* frame depth (z) */
-
-  const outerFn = (p) => rimT + (spec.brow ? spec.brow * smooth((p[1] / st.b + .1) / 1.1) : 0);
-  const outer = wire ? null : offsetContour(inner, outerFn);
+  const gap = 8;                                             /* half gap between rims */
+  const rimT = spec.rim ?? 7;                                /* rim thickness (mm) */
+  const cx = gap + st.a + rimT;                              /* right lens centre x */
+  const D = spec.depth ?? 7.6;                               /* frame depth (z) */
+  const bev = 1.5;
+  const outerFn = (p) => rimT + (spec.brow ? spec.brow * smooth((p[1] / st.b + .15) / 1.15) : 0);
+  const outer = offsetContour(inner, outerFn);
 
   let hinge = new T.Vector3();
   for (const side of [1, -1]) {
     const m = (pts) => (side === 1 ? pts.map(([x, y]) => [x + cx, y]) : pts.map(([x, y]) => [-(x + cx), y]).reverse());
-    const inn = m(inner);
+    const inn = m(inner), outP = m(outer);
 
-    /* lens */
-    const lensShape = new T.Shape(offsetContour(inn, -.2).map(([x, y]) => V2(x, y)));
-    const lg = new T.ExtrudeGeometry(lensShape, { depth: 1.1, bevelEnabled: false, curveSegments: 1 });
-    lg.translate(0, 0, -.55);
-    const ys = inn.map((p) => p[1]), yMin = Math.min(...ys), yMax = Math.max(...ys);
-    const col = new T.Color(spec.lens.color), light = col.clone().lerp(new T.Color(0xffffff), spec.lens.mirror ? .1 : .22);
-    const cArr = [], p = lg.attributes.position;
-    for (let i = 0; i < p.count; i++) {
-      const t = (p.getY(i) - yMin) / (yMax - yMin);
-      /* top dark -> bottom lighter */
-      const cc2 = col.clone().lerp(light, (1 - t) * (spec.lens.grad === false ? 0 : 1));
-      cArr.push(cc2.r, cc2.g, cc2.b);
+    /* lens, with a little thickness */
+    const lensShape = new T.Shape(offsetContour(inn, -.25).map(([x, y]) => V2(x, y)));
+    const lg = new T.ExtrudeGeometry(lensShape, { depth: 1.5, bevelEnabled: false, curveSegments: 1 });
+    lg.translate(0, 0, -.75 + 0.2);
+    { const lp = lg.attributes.position, lcx = side * cx; for (let i = 0; i < lp.count; i++) { const dx = (lp.getX(i) - lcx) / st.a, dy = lp.getY(i) / st.b, r2 = Math.min(1, dx * dx + dy * dy); lp.setZ(i, lp.getZ(i) + 3.4 * (1 - r2)); } lg.computeVertexNormals(); }
+    const ys = inn.map((q) => q[1]), yMin = Math.min(...ys), yMax = Math.max(...ys);
+    const col = new T.Color(spec.lens.color), light = col.clone().lerp(new T.Color(0xffffff), spec.lens.mirror ? .08 : .3);
+    const cArr = [], pp = lg.attributes.position;
+    for (let i = 0; i < pp.count; i++) {
+      const t = (pp.getY(i) - yMin) / (yMax - yMin);
+      const k = (spec.lens.grad === false ? 0 : 1) * Math.pow(1 - t, 1.3);
+      const cc = col.clone().lerp(light, k);
+      cArr.push(cc.r, cc.g, cc.b);
     }
     lg.setAttribute('color', new T.Float32BufferAttribute(cArr, 3));
     group.add(new T.Mesh(lg, lensMaterial(spec.lens)));
 
-    if (!wire) {
-      const outP = m(outer);
-      const shape = new T.Shape(outP.map(([x, y]) => V2(x, y)));
-      shape.holes.push(new T.Path(inn.map(([x, y]) => V2(x, y)).reverse()));
-      const geo = new T.ExtrudeGeometry(shape, { depth: D - 2 * .9, bevelEnabled: true, bevelThickness: .9, bevelSize: .8, bevelSegments: 4, curveSegments: 1 });
-      geo.translate(0, 0, -(D - 2 * .9) / 2);
-      group.add(new T.Mesh(geo, fm));
-      /* hinge point: right-most outer point */
-      let best = outP[0]; for (const q of outP) if (side * q[0] > side * best[0]) best = q;
-      if (side === 1) hinge.set(best[0], best[1], 0);
-      /* rivet */
-      const rv = new T.Mesh(new T.SphereGeometry(1.25, 20, 14), new T.MeshPhysicalMaterial({ color: spec.rivet || 0xcfcfcf, metalness: 1, roughness: .18 }));
-      rv.position.set(best[0] - side * 5.2, best[1] - 1.5, D / 2 + .3); group.add(rv);
-    } else {
-      const ring = new T.Mesh(new T.TubeGeometry(ringCurve(inn, 0, 0), 220, spec.wireR ?? .95, 12, true), fm);
-      group.add(ring);
-      let best = inn[0]; for (const q of inn) if (side * q[0] > side * best[0]) best = q;
-      if (side === 1) hinge.set(best[0] + .6, best[1] - 1, 0);
-      /* nose pad + arm */
-      const pad = new T.Mesh(new T.SphereGeometry(2.4, 20, 14), new T.MeshPhysicalMaterial({ color: 0xf4f1ea, roughness: .25, transmission: .5, thickness: 2, clearcoat: 1 }));
-      pad.scale.set(.6, 1.5, .5); pad.position.set(side * (bridgeGap + 1.6), -8.5, -4.6); pad.rotation.z = side * .2; group.add(pad);
-      const arm = new T.Mesh(sweepTube([[side * (bridgeGap + 4), -3, 0], [side * (bridgeGap + 2.6), -6.5, -2.5], [side * (bridgeGap + 1.8), -8.3, -4.2]], 1, 1, .5, .5, 8, 14), fm);
-      group.add(arm);
-    }
-  }
-
-  /* bridge */
-  const by = spec.bridgeY ?? (wire ? 6 : 8.5);
-  if (wire) {
-    group.add(new T.Mesh(sweepTube([[-(bridgeGap + .3), by - 2, 0], [-4, by + 3.4, 0], [0, by + 4.4, 0], [4, by + 3.4, 0], [bridgeGap + .3, by - 2, 0]], 1, 1, spec.wireR ?? .95, spec.wireR ?? .95, 12, 60), fm));
-  } else {
-    group.add(new T.Mesh(sweepTube([[-(bridgeGap + 2), by - 1, 0], [-4, by + 1.6, 0], [0, by + 2.4, 0], [4, by + 1.6, 0], [bridgeGap + 2, by - 1, 0]], 1, 1.25, 2.1, 2.1, 14, 40), fm));
-  }
-
-  /* temples */
-  const hx = hinge.x, hy = hinge.y;
-  for (const side of [1, -1]) {
-    const x0 = side * hx, zf = -D / 2 + .4;
-    const pts = [[x0, hy, zf], [x0 + side * .8, hy, zf - 8], [x0 + side * 3.4, hy, -58], [x0 + side * 5.4, hy - 1.5, -102], [x0 + side * 5.2, hy - 12, -135], [x0 + side * 4.4, hy - 22, -146]];
-    const tr = wire ? [.62, 1.12] : [1, .8];
-    const geo = wire ? sweepTube(pts, 1, 1, (spec.wireR ?? .95) * .85, (spec.wireR ?? .95) * .85, 10, 90) : sweepTube(pts, .95, 1.6, 2.5, 1.7, 14, 90);
+    /* chunky acetate rim */
+    const shape = new T.Shape(outP.map(([x, y]) => V2(x, y)));
+    shape.holes.push(new T.Path(inn.map(([x, y]) => V2(x, y)).reverse()));
+    const geo = new T.ExtrudeGeometry(shape, { depth: D - 2 * bev, bevelEnabled: true, bevelThickness: bev, bevelSize: bev * .85, bevelSegments: 7, curveSegments: 1 });
+    geo.translate(0, 0, -(D - 2 * bev) / 2);
     group.add(new T.Mesh(geo, fm));
-    if (wire) { /* ear tips */
-      const tipPts = pts.slice(3).map((p) => [p[0], p[1], p[2]]);
-      const tip = sweepTube([[x0 + side * 4.6, hy - .8, -86], ...tipPts], 1, 1, 1.9, 1.5, 12, 50);
-      group.add(new T.Mesh(tip, new T.MeshPhysicalMaterial({ color: spec.tip || 0x1a1410, roughness: .35, clearcoat: .8 })));
+
+    /* hinge point = right-most outer point, nudged to the upper half */
+    let best = outP[0]; for (const q of outP) if (side * q[0] > side * best[0]) best = q;
+    if (side === 1) hinge.set(best[0], best[1], 0);
+
+    /* gold rivets on the outer corner */
+    for (const [dx, dy] of [[-5.4, -1.2], [-8.6, -1.2]]) {
+      const rv = new T.Mesh(new T.SphereGeometry(1.15, 24, 16), metalMat(spec.rivet || 0xd8b25a, .16));
+      rv.scale.z = .55; rv.position.set(best[0] + side * dx, best[1] + dy, D / 2 + .2); group.add(rv);
     }
-    /* hinge barrel */
-    const hb = new T.Mesh(new T.CylinderGeometry(1.0, 1.0, wire ? 4 : 6.2, 14), new T.MeshPhysicalMaterial({ color: spec.hinge || 0xc9c9c9, metalness: 1, roughness: .25 }));
-    hb.position.set(x0 - side * (wire ? .6 : 1.2), hy, zf - 1.2); group.add(hb);
   }
 
-  /* centre the group on its bounding box */
+  /* acetate bridge: a thick arch between the rims */
+  const by = (spec.bridgeY ?? 6.5);
+  {
+    const A = []; const N = 20, th = 5.2, g0 = gap + 3;
+    for (let i = 0; i <= N; i++) { const t = i / N, x = lerp(-g0, g0, t), y = by + 3.8 * Math.sin(Math.PI * t) + 2.5; A.push(V2(x, y)); }
+    for (let i = N; i >= 0; i--) { const t = i / N, x = lerp(-g0, g0, t), y = by + 3.8 * Math.sin(Math.PI * t) + 2.5 - th * (.55 + .45 * Math.sin(Math.PI * t)); A.push(V2(x, y)); }
+    const bs = new T.Shape(A);
+    const bg = new T.ExtrudeGeometry(bs, { depth: D - 2 * bev - 1.2, bevelEnabled: true, bevelThickness: bev * .9, bevelSize: bev * .7, bevelSegments: 5, curveSegments: 1 });
+    bg.translate(0, 0, -(D - 2 * bev - 1.2) / 2 - 0.2);
+    group.add(new T.Mesh(bg, fm));
+  }
+
+  /* temples: pivot groups so they can fold at the hinge */
+  const hx = hinge.x, hy = hinge.y, zf = -D / 2 + .8;
+  const temples = [];
+  for (const side of [1, -1]) {
+    const pivot = new T.Group(); pivot.position.set(side * hx, hy, zf);
+    const rel = [[0, 0, 0], [side * .8, 0, -8], [side * 3.2, 0, -52], [side * 5.2, -1.2, -96], [side * 5, -10, -130], [side * 4.2, -19, -144]];
+    const geo = sweepTube(rel, .92, 1.55, 3.6, 1.55, 18, 100);
+    pivot.add(new T.Mesh(geo, tm));
+    /* gold rivets on the temple front */
+    for (const z of [-7, -14]) {
+      const rv = new T.Mesh(new T.SphereGeometry(1, 20, 14), metalMat(spec.rivet || 0xd8b25a, .16));
+      rv.scale.set(.5, 1, 1); rv.position.set(side * 3.2, 1.2, z); pivot.add(rv);
+    }
+    group.add(pivot);
+    temples.push({ pivot, side });
+    const hb = new T.Mesh(new T.CylinderGeometry(1.15, 1.15, 8, 16), metalMat(spec.hinge || 0xd8b25a, .2));
+    hb.position.set(side * (hx - 1.2), hy, zf - 1.4); group.add(hb);
+  }
+
+  /* centre on the front frame */
   const box = new T.Box3().setFromObject(group), c = box.getCenter(new T.Vector3());
   group.children.forEach((o) => o.position.sub(new T.Vector3(c.x, c.y, 0)));
-  group.userData.size = box.getSize(new T.Vector3());
-  group.userData.target = new T.Vector3(0, 0, -42);
+  const size = box.getSize(new T.Vector3());
+  group.userData.size = size;
+  group.userData.openTargetZ = -44;
+
+  /* fold(t): 0 = open, 1 = folded. Right temple folds in over the left one. */
+  group.userData.fold = 0;
+  group.userData.setFold = (t) => {
+    group.userData.fold = t;
+    const e = smooth(t);
+    temples.forEach(({ pivot, side }) => {
+      const base = pivot.userData.base || (pivot.userData.base = pivot.position.clone());
+      pivot.rotation.y = side * e * (Math.PI / 2 - (side === 1 ? .04 : .09));
+      pivot.position.z = base.z - (side === 1 ? e * 6.4 : 0);
+    });
+  };
+  group.userData.target = new T.Vector3(0, 0, group.userData.openTargetZ);
   return group;
+}
+
+/* ---------- studio lighting: soft boxes for crisp acetate highlights ---------- */
+function studioEnv() {
+  const s = new T.Scene();
+  s.background = new T.Color(0.18, 0.18, 0.2);
+  const box = (w, h, pos, v, tint = [1, 1, 1]) => {
+    const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(v * tint[0], v * tint[1], v * tint[2]), side: T.DoubleSide }));
+    m.position.set(...pos); m.lookAt(0, 0, 0); s.add(m);
+  };
+  box(14, 10, [0, 10, 3], 7);               /* big top softbox */
+  box(3, 14, [-11, 3, 5], 12);              /* left strip */
+  box(3, 14, [11, 3, 3], 8, [1, .96, .9]);  /* right strip, warm */
+  box(12, 4, [0, 1, 12], 3.2);              /* front fill */
+  box(8, 8, [0, 5, -12], 5);                /* back rim */
+  box(24, 24, [0, -10, 0], 1.6, [1, .93, .86]); /* warm floor bounce */
+  return s;
 }
 
 /* ---------- scene helpers ---------- */
@@ -207,87 +249,96 @@ export function makeStage(canvas, { alpha = true, preserve = false, dpr = Math.m
   renderer.setPixelRatio(dpr);
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.0;
   const scene = new T.Scene();
   const pm = new T.PMREMGenerator(renderer);
-  scene.environment = pm.fromScene(new T.RoomEnvironment(), .035).texture;
-  scene.environmentIntensity = 1.05;
-  const key = new T.DirectionalLight(0xffffff, 1.4); key.position.set(-120, 200, 260); scene.add(key);
-  const rim = new T.DirectionalLight(0xfff1e0, .8); rim.position.set(180, 60, -200); scene.add(rim);
+  scene.environment = pm.fromScene(studioEnv(), .02).texture;
+  scene.environmentIntensity = 1;
+  const key = new T.DirectionalLight(0xffffff, .9); key.position.set(-120, 220, 260); scene.add(key);
   const camera = new T.PerspectiveCamera(24, 1, 20, 3000); camera.position.set(0, 0, 500);
   const shadow = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false, opacity: .8 }));
   shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
   return { renderer, scene, camera, shadow, pm };
 }
 
-export function fitCamera(stage, size, aspect, margin = 1.02) {
-  const { camera } = stage, fov = (camera.fov * Math.PI) / 180;
+export function fitCamera(stage, size, aspect, margin = 1.14) {
+  const fov = (stage.camera.fov * Math.PI) / 180;
   const needW = size.x * margin, needH = size.y * margin * 1.5;
-  const d = Math.max(needW / (2 * Math.tan(fov / 2) * aspect), needH / (2 * Math.tan(fov / 2)));
-  return d + size.z / 2;
+  return Math.max(needW / (2 * Math.tan(fov / 2) * aspect), needH / (2 * Math.tan(fov / 2))) + size.z / 2;
 }
 
 export class Viewer {
   constructor(container, spec, { autoRotate = true } = {}) {
-    this.container = container; this.spec = spec;
+    this.container = container;
     this.canvas = document.createElement('canvas'); this.canvas.style.cssText = 'width:100%;height:100%;display:block;touch-action:none;cursor:grab';
     container.appendChild(this.canvas);
     this.stage = makeStage(this.canvas);
+    this.foldVal = 0; this.foldGoal = 0; this.foldFrom = 0; this.foldT0 = 0; this.foldMs = 900;
     this.setSpec(spec, true);
     this.controls = new T.OrbitControls(this.stage.camera, this.canvas);
     const c = this.controls; c.target.copy(this.model.userData.target);
     c.enableDamping = true; c.dampingFactor = .07; c.enablePan = false; c.rotateSpeed = .9; c.zoomSpeed = .8;
     c.minPolarAngle = .18 * Math.PI; c.maxPolarAngle = .82 * Math.PI;
     c.autoRotate = autoRotate; c.autoRotateSpeed = 1.1;
-    this.interacted = false; this.idleTimer = null;
+    this.interacted = false; this.idleTimer = null; this.autoRotateAllowed = autoRotate;
     c.addEventListener('start', () => { this.canvas.style.cursor = 'grabbing'; c.autoRotate = false; clearTimeout(this.idleTimer); if (!this.interacted) { this.interacted = true; this.onInteract && this.onInteract(); } });
     c.addEventListener('end', () => { this.canvas.style.cursor = 'grab'; clearTimeout(this.idleTimer); this.idleTimer = setTimeout(() => { if (this.autoRotateAllowed) c.autoRotate = true; }, 3500); });
-    this.autoRotateAllowed = autoRotate;
-    this.resize(); this.setPose(-.5, 1.32, true);
+    this.resize(); this.setPose(-.5, 1.32);
     this._ro = new ResizeObserver(() => this.resize()); this._ro.observe(container);
     this.running = true; this.loop = this.loop.bind(this); requestAnimationFrame(this.loop);
     this._vis = () => { this.running = !document.hidden; if (this.running) requestAnimationFrame(this.loop); }; document.addEventListener('visibilitychange', this._vis);
   }
-  setSpec(spec, first) {
+  setSpec(spec) {
     this.spec = spec;
     if (this.model) { this.stage.scene.remove(this.model); this.model.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); }
     this.model = buildGlasses(spec); this.stage.scene.add(this.model);
-    const s = this.model.userData.size;
-    this.stage.shadow.scale.set(s.x * 1.5, s.z * 1.5, 1); this.stage.shadow.position.set(0, -s.y / 2 - 26, this.model.userData.target.z);
-    if (!first) this.resize();
+    this.model.userData.setFold(this.foldVal);
+    this.syncFoldLayout();
+    if (this.container && this.controls) this.resize();
   }
+  syncFoldLayout() {                                         /* keep the orbit centre and shadow on the glasses as they fold */
+    const e = smooth(this.foldVal), s = this.model.userData.size, tg = this.model.userData.target;
+    tg.z = lerp(this.model.userData.openTargetZ, -2, e);
+    this.stage.shadow.scale.set(s.x * 1.5, lerp(s.z * 1.5, s.z * .5, e), 1);
+    this.stage.shadow.position.set(0, -s.y / 2 - 26, tg.z);
+    if (this.controls) { const dz = tg.z - this.controls.target.z; if (dz) { this.controls.target.z += dz; this.stage.camera.position.z += dz; } }
+  }
+  setFolded(f, ms = 950) { this.foldGoal = f ? 1 : 0; this.foldFrom = this.foldVal; this.foldT0 = performance.now(); this.foldMs = ms; }
+  get folded() { return this.foldGoal === 1; }
   resize() {
     const w = this.container.clientWidth || 300, h = this.container.clientHeight || 300;
     this.stage.renderer.setSize(w, h, false);
     this.stage.camera.aspect = w / h; this.stage.camera.updateProjectionMatrix();
     this.dist = fitCamera(this.stage, this.model.userData.size, w / h);
-    if (this.controls) { this.controls.minDistance = this.dist * .55; this.controls.maxDistance = this.dist * 1.35; }
-    const cur = this.stage.camera.position.length();
-    if (!cur || cur < 1) this.setPose(-.5, 1.32, true);
+    if (this.controls) { this.controls.minDistance = this.dist * .5; this.controls.maxDistance = this.dist * 1.4; }
   }
-  setPose(azimuth, polar, instant) {
+  setPose(azimuth, polar) {
     const cam = this.stage.camera, d = this.dist || 400, tg = this.model.userData.target;
     cam.position.set(tg.x + d * Math.sin(polar) * Math.sin(azimuth), tg.y + d * Math.cos(polar), tg.z + d * Math.sin(polar) * Math.cos(azimuth));
-    cam.lookAt(tg); if (this.controls) this.controls.update();
+    cam.lookAt(tg); if (this.controls) { this.controls.target.copy(tg); this.controls.update(); }
   }
   animateTo(azimuth, polar, ms = 800) {
-    const cam = this.stage.camera, tg = this.model.userData.target, off = cam.position.clone().sub(tg);
+    const cam = this.stage.camera, tg = this.controls.target.clone(), off = cam.position.clone().sub(tg);
     const r = off.length(), a0 = Math.atan2(off.x, off.z), p0 = Math.acos(off.y / r);
     let da = azimuth - a0; da = Math.atan2(Math.sin(da), Math.cos(da));
     const t0 = performance.now(); this.controls.autoRotate = false; this._anim = true;
     const step = (t) => {
-      const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
-      const a = a0 + da * e, p = p0 + (polar - p0) * e;
-      cam.position.set(tg.x + r * Math.sin(p) * Math.sin(a), tg.y + r * Math.cos(p), tg.z + r * Math.sin(p) * Math.cos(a)); cam.lookAt(tg);
+      const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3), a = a0 + da * e, p = p0 + (polar - p0) * e, g = this.controls.target;
+      cam.position.set(g.x + r * Math.sin(p) * Math.sin(a), g.y + r * Math.cos(p), g.z + r * Math.sin(p) * Math.cos(a)); cam.lookAt(g);
       if (k < 1) requestAnimationFrame(step); else this._anim = false;
     };
     requestAnimationFrame(step);
   }
   loop() {
     if (!this.running) return;
+    if (this.foldVal !== this.foldGoal) {
+      const k = clamp((performance.now() - this.foldT0) / this.foldMs);
+      this.foldVal = lerp(this.foldFrom, this.foldGoal, k);
+      this.model.userData.setFold(this.foldVal); this.syncFoldLayout();
+    }
     if (!this._anim) this.controls.update();
-    const cam = this.stage.camera, tg = this.model.userData.target, rel = cam.position.clone().sub(tg), pol = Math.acos(rel.y / rel.length());
-    this.stage.shadow.material.opacity = .8 * Math.max(0, Math.min(1, (pol - .85) / .55)) * Math.max(0, Math.min(1, (2.3 - pol) / .4));
+    const cam = this.stage.camera, tg = this.controls.target, rel = cam.position.clone().sub(tg), pol = Math.acos(rel.y / rel.length());
+    this.stage.shadow.material.opacity = .8 * clamp((pol - .85) / .55) * clamp((2.3 - pol) / .4);
     this.stage.renderer.render(this.stage.scene, this.stage.camera);
     requestAnimationFrame(this.loop);
   }
