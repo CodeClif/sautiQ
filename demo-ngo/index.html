@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#123524">
+<meta name="theme-color" content="#0d3b2a">
 <title>Open Hands Foundation | Concept prototype by SAUTiQ</title>
 <meta name="description" content="A concept website for an NGO, designed by SAUTiQ. Names, photos and figures are samples.">
 <link rel="icon" href="../favicon.ico" sizes="any">
@@ -13,201 +13,201 @@
 <style>
 @font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../font-inter-tight.woff2) format("woff2")}
 @font-face{font-family:"Young Serif";font-weight:400;font-display:swap;src:url(font-young-serif.woff2) format("woff2")}
-:root{--cream:#f7f1e6;--paper:#fffaf0;--green:#123524;--green2:#1d4a33;--gold:#f2a900;--clay:#c4572b;--ink:#17211b;--mute:rgba(23,33,27,.64);--line:rgba(23,33,27,.14);
---serif:"Young Serif",Georgia,serif;--sans:"Inter Tight","Helvetica Neue",Arial,sans-serif;--r:22px}
+:root{--ink:#0b1a13;--forest:#0d3b2a;--forest2:#14503a;--gold:#ffc21a;--coral:#f2542d;--cream:#fbf4e4;--paper:#fffaf0;--line:rgba(11,26,19,.16);
+--serif:"Young Serif",Georgia,serif;--sans:"Inter Tight","Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{display:block;max-width:100%}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
-.wrap{width:min(1180px,100% - 40px);margin:0 auto}
-h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spacing:-.01em}
-h2{font-size:clamp(34px,6vw,60px)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
-.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 26px;border-radius:999px;font:600 16px var(--sans);transition:transform .2s,background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.wrap{width:min(1240px,100% - 36px);margin:0 auto}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:.98;letter-spacing:-.015em}
+.tag{display:inline-block;font:800 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;background:var(--gold);color:var(--ink);transform:rotate(-2deg);border-radius:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 28px;border-radius:999px;font:800 15px var(--sans);letter-spacing:.04em;text-transform:uppercase;transition:transform .2s,background .2s;-webkit-tap-highlight-color:transparent}
 .btn:active{transform:scale(.97)}
-.btn-gold{background:var(--gold);color:var(--ink)}.btn-gold:hover{background:#ffbd2e}
-.btn-green{background:var(--green);color:var(--cream)}.btn-green:hover{background:var(--green2)}
-.btn-line{border:1.5px solid currentColor}.btn-line:hover{background:var(--ink);color:var(--cream)}
-.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-gold{background:var(--gold);color:var(--ink)}.btn-gold:hover{background:#ffd04d}
+.btn-dark{background:var(--ink);color:var(--cream)}
+.btn-line{border:2px solid currentColor}
+.kente{height:14px;background:linear-gradient(90deg,var(--gold) 0 14%,var(--ink) 14% 18%,var(--coral) 18% 32%,var(--forest) 32% 36%,var(--gold) 36% 50%,var(--ink) 50% 54%,var(--coral) 54% 68%,var(--forest) 68% 72%,var(--gold) 72% 86%,var(--ink) 86% 90%,var(--coral) 90% 100%);background-size:200px 100%}
 
-/* prototype ribbon */
-.proto{background:#0c1f15;color:#e9e2d0;font:500 13px var(--sans);padding:9px 0}
+.proto{background:var(--ink);color:#e9e2d0;font:500 13px var(--sans);padding:9px 0;position:relative;z-index:60}
 .proto .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px}
-.proto b{color:var(--gold);font-weight:600}
-.proto button{font:600 13px var(--sans);color:var(--gold);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.proto b{color:var(--gold)}
+.proto button{font:700 13px var(--sans);color:var(--gold);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 
-/* nav */
-header{position:sticky;top:0;z-index:40;background:rgba(247,241,230,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{display:flex;align-items:center;gap:10px;font:400 22px var(--serif)}
-.logo svg{width:34px;height:34px}
-nav ul{display:flex;gap:30px;list-style:none;font-weight:500;font-size:15px}
-nav ul a{opacity:.8;transition:opacity .2s}nav ul a:hover{opacity:1}
-.nav .right{display:flex;align-items:center;gap:12px}
-.nav .btn{padding:11px 20px;font-size:15px}
-.burger{display:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);place-items:center}
-.burger i{display:block;width:18px;height:2px;background:var(--ink);margin:4px auto;transition:.3s}
+/* HERO */
+.hero{position:relative;min-height:calc(100svh - 37px);color:#fff;display:flex;flex-direction:column;background:var(--forest);overflow:hidden;isolation:isolate}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 35%;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(95deg,rgba(7,28,19,.9) 6%,rgba(7,28,19,.5) 38%,rgba(7,28,19,.05) 62%),linear-gradient(to top,rgba(7,28,19,.7),transparent 40%)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.logo{display:flex;align-items:center;gap:10px;font:400 25px var(--serif)}
+.logo svg{width:38px;height:38px}
+.nav ul{display:flex;gap:30px;list-style:none;font-weight:600;font-size:15px}
+.nav ul a{opacity:.85}.nav ul a:hover{opacity:1}
+.nav .r{display:flex;gap:10px;align-items:center}
+.nav .btn{padding:12px 22px;font-size:13px}
+.burger{display:none;width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.6);place-items:center}
+.burger i{display:block;width:18px;height:2px;background:#fff;margin:4px auto;transition:.3s}
 .menu-open .burger i:nth-child(1){transform:translateY(6px) rotate(45deg)}.menu-open .burger i:nth-child(2){opacity:0}.menu-open .burger i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-@media(max-width:860px){nav{display:none}.burger{display:grid}.nav .right .btn{display:none}
- .menu-open nav{display:block;position:fixed;inset:calc(72px + 37px) 0 0 0;background:var(--cream);padding:28px 20px;z-index:39}
- .menu-open nav ul{flex-direction:column;gap:0}.menu-open nav li a{display:block;padding:18px 0;border-bottom:1px solid var(--line);font:400 30px var(--serif);opacity:1}
- .menu-open nav .m-cta{display:flex;margin-top:26px}}
-.m-cta{display:none}
-@media(max-width:860px){.m-cta{display:inline-flex}}
+.hero-body{flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,5vw,70px);align-items:end;padding:clamp(20px,4vw,50px) 0 clamp(32px,5vw,60px)}
+.hero h1{font-size:clamp(50px,7.2vw,98px);margin:18px 0 20px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .lead{font-size:clamp(17px,2vw,21px);max-width:28em;opacity:.92}
+@media(max-width:900px){.nav ul{display:none}.nav .r .btn{display:none}.burger{display:grid}
+ .menu-open .nav ul{display:flex;flex-direction:column;position:fixed;inset:0;background:var(--forest);padding:110px 24px 24px;z-index:70;gap:0}
+ .menu-open .nav li a{display:block;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.18);font:400 34px var(--serif);opacity:1}
+ .menu-open .nav .r{position:relative;z-index:80}
+ .hero-body{grid-template-columns:minmax(0,1fr);align-items:start}}
 
-/* hero */
-.hero{padding:44px 0 0;position:relative}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero h1{font-size:clamp(46px,8.4vw,98px);margin:18px 0 22px}
-.hero h1 em{font-style:normal;color:var(--clay)}
-.hero p.lead{font-size:clamp(17px,2.2vw,20px);max-width:30em;color:var(--mute);margin-bottom:30px}
-.cta-row{display:flex;gap:12px;flex-wrap:wrap}
-.hero-img{position:relative;border-radius:var(--r) var(--r) 180px var(--r);overflow:hidden;aspect-ratio:4/4.6;background:#d8cdb7}
-.hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.chip{position:absolute;left:-18px;bottom:36px;background:var(--paper);border-radius:18px;padding:14px 18px;box-shadow:0 14px 40px rgba(18,53,36,.18);display:flex;align-items:center;gap:12px;font-size:14px}
-.chip b{font:400 30px var(--serif);display:block;line-height:1}
-.chip .dot{width:42px;height:42px;border-radius:50%;background:var(--gold);display:grid;place-items:center}
-.chip .dot svg{width:22px;height:22px;fill:var(--ink)}
-.hero-img-wrap{position:relative}
-.deco{position:absolute;right:-10px;top:-14px;width:96px;height:96px;z-index:2}
-@media(max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:34px}.chip{left:12px;bottom:20px}.deco{width:70px;height:70px;right:6px}.hero-img{border-radius:var(--r) var(--r) 110px var(--r)}}
+/* donate card (in hero) */
+.gift{background:var(--paper);color:var(--ink);border-radius:26px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.gift h3{font:800 13px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.gift h3 span{color:var(--coral)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#efe7d3;border-radius:999px;padding:4px;margin-bottom:12px}
+.seg button{padding:11px;border-radius:999px;font-weight:800;font-size:14px;transition:.25s}
+.seg button.on{background:var(--ink);color:var(--cream)}
+.amts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.amts button{padding:15px 2px;border-radius:14px;border:2px solid var(--line);font:400 20px var(--serif);background:#fff;min-width:0;transition:.2s}
+.amts button.on{border-color:var(--ink);background:var(--gold)}
+.custom{margin-top:8px;display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:14px;padding:0 16px;background:#fff}
+.custom span{font-weight:800;color:rgba(11,26,19,.5);font-size:14px}
+.custom input{flex:1;border:0;background:none;font:400 20px var(--serif);padding:13px 0;outline:0;min-width:0;color:var(--ink)}
+.custom:focus-within{border-color:var(--ink)}
+.imp{margin:14px 0;padding:12px 14px;background:#fff1c2;border-radius:12px;font-size:14px;line-height:1.35}
+.gift .btn{width:100%;padding:18px;background:var(--coral);color:#fff}
+.gift .btn:hover{background:#ff6a45}
+.gift small{display:block;text-align:center;margin-top:10px;font-size:12px;color:rgba(11,26,19,.6)}
 
-/* trust strip */
-.trust{margin-top:64px;background:var(--green);color:var(--cream);padding:22px 0;overflow:hidden}
-.trust .row{display:flex;gap:46px;white-space:nowrap;width:max-content;animation:slide 38s linear infinite;font:400 21px var(--serif)}
-.trust span{display:inline-flex;align-items:center;gap:46px}
-.trust span::after{content:"";width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+/* marquee */
+.mq{background:var(--gold);color:var(--ink);overflow:hidden;padding:14px 0;border-block:3px solid var(--ink)}
+.mq .row{display:flex;gap:44px;width:max-content;animation:slide 30s linear infinite;font:400 clamp(30px,5vw,56px) var(--serif);white-space:nowrap;line-height:1}
+.mq span{display:inline-flex;gap:44px;align-items:center}
+.mq span::after{content:"";width:.5em;height:.5em;background:var(--coral);transform:rotate(45deg)}
 @keyframes slide{to{transform:translateX(-50%)}}
 
-section{padding:clamp(70px,11vw,130px) 0}
-/* about */
-.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:center}
-.about .pic{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;position:relative}
-.about .pic img{width:100%;height:100%;object-fit:cover}
-.about h2{margin:14px 0 22px}
-.about p{color:var(--mute);font-size:18px;margin-bottom:18px;max-width:34em}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
-.pillars div{border-top:2px solid var(--ink);padding-top:12px;font-size:14px;color:var(--mute)}
-.pillars b{display:block;font:400 22px var(--serif);color:var(--ink)}
-@media(max-width:860px){.about{grid-template-columns:minmax(0,1fr)}.about .pic{aspect-ratio:4/3.6}}
-
-/* programs */
-.programs{background:var(--paper)}
-.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:46px}
-.head h2{margin-top:12px;max-width:12em}
-.head p{max-width:26em;color:var(--mute)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:var(--cream);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:14px;min-height:340px;transition:transform .3s,box-shadow .3s;border:1px solid var(--line)}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(18,53,36,.12)}
-.card .ico{width:60px;height:60px;border-radius:18px;display:grid;place-items:center}
-.card .ico svg{width:30px;height:30px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.card:nth-child(1) .ico{background:var(--gold)}.card:nth-child(2) .ico{background:#f1b9a3}.card:nth-child(3) .ico{background:#b9d8c3}
-.card h3{font-size:30px}
-.card p{color:var(--mute);flex:1}
-.card a{font-weight:600;display:inline-flex;gap:8px;align-items:center}
-.card a:hover{gap:12px}
-@media(max-width:860px){.cards{grid-template-columns:minmax(0,1fr)}.card{min-height:0}}
+section{padding:clamp(70px,11vw,140px) 0}
+/* statement */
+.statement{background:var(--cream)}
+.statement p{font:400 clamp(30px,5.6vw,72px)/1.08 var(--serif);max-width:20em;letter-spacing:-.02em}
+.statement p span{opacity:.18;transition:opacity .25s}
+.statement p span.on{opacity:1}
+.statement .tag{margin-bottom:28px}
 
 /* impact */
-.impact{background:var(--green);color:var(--cream);position:relative;overflow:hidden}
-.impact .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
-.stat{border-top:1.5px solid rgba(247,241,230,.35);padding-top:18px}
-.stat b{display:block;font:400 clamp(44px,7vw,80px) var(--serif);line-height:1;color:var(--gold)}
-.stat span{opacity:.8;font-size:15px}
-.impact h2{max-width:14em;margin-top:12px}
-.impact .eyebrow{color:var(--gold)}
-@media(max-width:860px){.impact .grid{grid-template-columns:1fr 1fr;gap:30px 18px}}
+.impact{background:var(--forest);color:var(--cream);padding-bottom:0}
+.impact h2{font-size:clamp(40px,7vw,92px);max-width:11em}
+.impact .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px;border-top:2px solid rgba(251,244,228,.3)}
+.stat{padding:26px 20px 34px 0;border-right:2px solid rgba(251,244,228,.18)}
+.stat+.stat{padding-left:20px}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:400 clamp(46px,8vw,104px) var(--serif);line-height:1;color:var(--gold);letter-spacing:-.03em}
+.stat span{font-size:15px;opacity:.85}
+.impact .kente{margin-top:30px}
+@media(max-width:800px){.impact .grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(3){padding-left:0;border-top:2px solid rgba(251,244,228,.18)}.stat:nth-child(4){border-top:2px solid rgba(251,244,228,.18)}}
 
-/* donate */
-.donate-box{background:var(--paper);border-radius:34px;padding:clamp(24px,5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);border:1px solid var(--line);align-items:center}
-.donate-box h2{margin:12px 0 16px}
-.donate-box p.sub{color:var(--mute);font-size:18px}
-.seg{display:inline-grid;grid-template-columns:1fr 1fr;background:var(--cream);border-radius:999px;padding:5px;margin:22px 0 14px;border:1px solid var(--line)}
-.seg button{padding:11px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:.25s}
-.seg button.on{background:var(--green);color:var(--cream)}
-.amts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.amts button{padding:16px 2px;border-radius:16px;border:1.5px solid var(--line);font:400 20px var(--serif);min-width:0;background:var(--cream);transition:.2s}
-.amts button.on{border-color:var(--green);background:var(--green);color:var(--cream)}
-.custom{margin-top:10px;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:16px;padding:0 18px;background:var(--cream)}
-.custom span{font-weight:600;color:var(--mute)}
-.custom input{flex:1;border:0;background:none;font:400 22px var(--serif);padding:15px 0;outline:0;min-width:0;color:var(--ink)}
-.custom:focus-within{border-color:var(--green)}
-.impact-line{margin:18px 0 22px;padding:16px 18px;background:#fbe6a6;border-radius:16px;font-size:15px;display:flex;gap:12px;align-items:flex-start}
-.impact-line svg{width:22px;height:22px;flex:none;fill:var(--ink);margin-top:1px}
-.donate-box .btn{width:100%;padding:19px}
-.secure{margin-top:12px;font-size:13px;color:var(--mute);text-align:center}
-@media(max-width:860px){.donate-box{grid-template-columns:minmax(0,1fr)}}
+/* programs: sticky stack */
+.programs{background:var(--ink);color:var(--cream);padding-top:clamp(60px,9vw,110px)}
+.programs .top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px}
+.programs h2{font-size:clamp(42px,8vw,110px)}
+.programs .top p{max-width:24em;opacity:.75}
+.stack{position:relative}
+.panel{position:sticky;top:calc(14px + var(--i)*16px);border-radius:30px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-height:min(560px,78svh);margin-bottom:22px;color:var(--ink)}
+.panel.p1{background:var(--gold)}.panel.p2{background:#ff8a6a}.panel.p3{background:#bfe3c9}
+.panel .txt{padding:clamp(24px,4vw,52px);display:flex;flex-direction:column;gap:14px}
+.panel .num{font:400 clamp(70px,12vw,170px) var(--serif);line-height:.8;opacity:.9}
+.panel h3{font-size:clamp(38px,5.5vw,70px)}
+.panel p{font-size:clamp(16px,1.6vw,19px);max-width:26em}
+.panel ul{list-style:none;display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.panel li{border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px}
+.panel .pic{position:relative;min-height:260px}
+.panel .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel .pic .tag{position:absolute;left:18px;bottom:18px;background:#fff}
+@media(max-width:800px){.panel{grid-template-columns:minmax(0,1fr);min-height:0}.panel .pic{order:-1;aspect-ratio:16/10;min-height:0}.panel{top:calc(10px + var(--i)*10px)}}
 
 /* stories */
-.stories{background:var(--paper)}
-.story-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
-.story-big{position:relative;border-radius:var(--r);overflow:hidden;min-height:520px;color:#fff;display:flex;align-items:flex-end}
-.story-big img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.story-big::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,17,.88),rgba(10,26,17,.05) 62%)}
-.story-big div{position:relative;z-index:1;padding:clamp(22px,4vw,44px);max-width:34em}
-.story-big q{display:block;font:400 clamp(24px,3.4vw,38px)/1.15 var(--serif);quotes:"“" "”";margin-bottom:18px}
-.story-big cite{font-style:normal;font-size:14px;opacity:.85}
-.story-side{display:grid;gap:18px}
-.story-small{background:var(--cream);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
-.story-small img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover}
-.story-small div{padding:22px}
-.story-small h3{font-size:24px;margin-bottom:8px}.story-small p{color:var(--mute);font-size:15px}
-@media(max-width:860px){.story-grid{grid-template-columns:minmax(0,1fr)}.story-big{min-height:440px}}
+.stories{background:var(--cream)}
+.stories .top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.stories h2{font-size:clamp(40px,7vw,96px);max-width:10em}
+.arrows{display:flex;gap:8px}
+.arrows button{width:54px;height:54px;border-radius:50%;border:2px solid var(--ink);font-size:22px;transition:.2s}
+.arrows button:hover{background:var(--ink);color:var(--cream)}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px max(18px,calc((100vw - 1240px)/2)) 20px;scrollbar-width:none;scroll-padding-left:max(18px,calc((100vw - 1240px)/2))}
+.rail::-webkit-scrollbar{display:none}
+.story{flex:0 0 min(380px,82vw);scroll-snap-align:start;border-radius:26px;overflow:hidden;background:var(--paper);border:2px solid var(--ink);display:flex;flex-direction:column}
+.story .ph{position:relative;aspect-ratio:4/4.4;overflow:hidden}
+.story .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.story:hover .ph img{transform:scale(1.05)}
+.story .ph .tag{position:absolute;left:14px;top:14px}
+.story .b{padding:22px;display:flex;flex-direction:column;gap:10px}
+.story h3{font-size:30px}
+.story p{font-size:15px;opacity:.8}
+.story cite{font:700 13px var(--sans);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
 
-/* involved */
-.involve{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
-.inv{border:1.5px solid var(--ink);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:12px;transition:.3s;background:transparent}
-.inv:hover{background:var(--ink);color:var(--cream)}
-.inv:hover p{color:rgba(247,241,230,.75)}
-.inv b{font:400 28px var(--serif)}
-.inv p{color:var(--mute);flex:1;transition:.3s}
-.inv span{font-weight:600}
-@media(max-width:860px){.involve{grid-template-columns:minmax(0,1fr)}}
+/* where it goes */
+.money{background:var(--forest2);color:var(--cream)}
+.money .g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,90px);align-items:center}
+.money h2{font-size:clamp(40px,7vw,92px);margin:16px 0 20px}
+.money p{opacity:.85;font-size:18px;max-width:26em}
+.bars{display:grid;gap:18px}
+.bar{display:grid;gap:8px}
+.bar .l{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+.bar .t{height:22px;border-radius:999px;background:rgba(251,244,228,.14);overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;border-radius:999px;background:var(--gold);transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar:nth-child(2) .t i{background:#ff8a6a}.bar:nth-child(3) .t i{background:#bfe3c9}
+.in .bar .t i{width:var(--w)}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.badges span{border:2px solid rgba(251,244,228,.5);border-radius:999px;padding:9px 16px;font-weight:700;font-size:13px}
+@media(max-width:860px){.money .g{grid-template-columns:minmax(0,1fr)}}
 
-/* newsletter + footer */
-.news{background:var(--gold);padding:clamp(46px,7vw,80px) 0}
-.news .wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
-.news h2{font-size:clamp(30px,5vw,48px)}
-.news form{display:flex;gap:10px;background:var(--cream);padding:7px;border-radius:999px}
-.news input{flex:1;border:0;background:none;padding:0 18px;font:500 16px var(--sans);outline:0;min-width:0}
-.news .btn{padding:14px 24px}
-@media(max-width:860px){.news .wrap{grid-template-columns:minmax(0,1fr)}}
-footer{background:var(--green);color:var(--cream);padding:70px 0 34px}
-.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
-.foot .logo{margin-bottom:14px}
-.foot p{opacity:.7;font-size:15px;max-width:22em}
-.foot h4{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.foot ul{list-style:none;display:grid;gap:9px;font-size:15px;opacity:.85}
-.legal{margin-top:50px;padding-top:22px;border-top:1px solid rgba(247,241,230,.2);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;opacity:.7}
-@media(max-width:860px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+/* ways */
+.ways{background:var(--cream)}
+.ways h2{font-size:clamp(40px,7vw,96px);max-width:10em;margin-bottom:40px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tile{border-radius:28px;padding:30px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s;border:2px solid var(--ink)}
+.tile:hover{transform:translateY(-8px) rotate(-.6deg)}
+.tile:nth-child(1){background:var(--coral);color:#fff}.tile:nth-child(2){background:var(--gold)}.tile:nth-child(3){background:var(--forest);color:var(--cream)}
+.tile h3{font-size:clamp(34px,4.4vw,56px)}
+.tile p{font-size:16px;opacity:.9;margin:12px 0 18px;max-width:20em}
+.tile .arrow{width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--cream);display:grid;place-items:center;font-size:24px}
+@media(max-width:860px){.tiles{grid-template-columns:minmax(0,1fr)}.tile{min-height:0}}
 
-/* modal + toast */
-.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:18px;background:rgba(12,31,21,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* footer */
+footer{background:var(--ink);color:var(--cream);padding:clamp(60px,9vw,110px) 0 28px;overflow:hidden}
+.fnews{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end;margin-bottom:70px}
+.fnews h2{font-size:clamp(36px,6vw,72px)}
+.fnews form{display:flex;background:var(--cream);border-radius:999px;padding:6px}
+.fnews input{flex:1;background:none;border:0;padding:0 20px;font:500 16px var(--sans);outline:0;min-width:0;color:var(--ink)}
+.fnews .btn{padding:15px 24px}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;padding-top:30px;border-top:1px solid rgba(251,244,228,.2);font-size:15px}
+.cols h4{font:800 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.cols ul{list-style:none;display:grid;gap:8px;opacity:.85}
+.giant{font:400 clamp(44px,15.2vw,212px)/.9 var(--serif);color:var(--gold);letter-spacing:-.04em;margin:60px 0 0;white-space:nowrap;text-align:center;user-select:none}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;opacity:.65;margin-top:26px}
+@media(max-width:860px){.fnews{grid-template-columns:minmax(0,1fr)}.cols{grid-template-columns:1fr 1fr}}
+
+/* modals + toast */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:16px;background:rgba(11,26,19,.65);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .modal.open{display:grid}
-.sheet{background:var(--paper);border-radius:28px;max-width:640px;width:100%;max-height:calc(100svh - 36px);overflow:auto;padding:clamp(24px,5vw,40px);position:relative}
-.sheet h3{font-size:clamp(28px,5vw,40px);margin:10px 0 14px}
-.sheet .x{position:absolute;right:16px;top:16px;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);font-size:18px}
-.sheet p{color:var(--mute)}
-.sheet h5{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin:22px 0 10px}
+.sheet{background:var(--paper);color:var(--ink);border-radius:28px;max-width:640px;width:100%;max-height:calc(100svh - 32px);overflow:auto;padding:clamp(24px,5vw,40px);position:relative}
+.sheet h3{font-size:clamp(30px,5vw,44px);margin:14px 0}
+.sheet .x{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;border:2px solid var(--line);font-size:18px}
+.sheet p{opacity:.75}
+.sheet h5{font:800 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin:22px 0 10px}
 .sheet ul{list-style:none;display:grid;gap:8px}
-.sheet li{display:flex;gap:10px;font-size:16px}
-.sheet li::before{content:"✓";color:var(--green);font-weight:700}
-.sheet .addon li::before{content:"+";color:var(--clay)}
+.sheet li{display:flex;gap:10px}
+.sheet li::before{content:"✓";font-weight:800;color:var(--forest)}
+.sheet .addon li::before{content:"+";color:var(--coral)}
 .sheet .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 .pay{display:grid;gap:10px;margin:20px 0}
-.pay button{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-radius:16px;border:1.5px solid var(--line);background:var(--cream);font-weight:600;text-align:left}
-.pay button:hover{border-color:var(--green)}
-.pay small{font-weight:400;color:var(--mute)}
-#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--cream);padding:14px 22px;border-radius:999px;font-size:15px;z-index:120;transition:.35s;max-width:calc(100% - 32px);text-align:center}
+.pay button{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-radius:16px;border:2px solid var(--line);background:#fff;font-weight:800;text-align:left}
+.pay small{font-weight:500;opacity:.6}
+#toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--cream);padding:14px 22px;border-radius:999px;font-size:15px;z-index:120;transition:.35s;max-width:calc(100% - 32px);text-align:center}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* reveal */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s,transform .9s}
 .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.trust .row{animation:none}html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.mq .row{animation:none}html{scroll-behavior:auto}.statement p span{opacity:1}.bar .t i{width:var(--w);transition:none}}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 </style>
 </head>
@@ -215,167 +215,143 @@ footer{background:var(--green);color:var(--cream);padding:70px 0 34px}
 
 <div class="proto"><div class="wrap"><span><b>Concept prototype by SAUTiQ.</b> Name, photos and figures are samples.</span><button type="button" data-open="incl">What's included</button></div></div>
 
-<header>
-  <div class="wrap nav">
-    <a href="#top" class="logo" aria-label="Open Hands Foundation">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#123524"/><path d="M12 25c0-6 3-9 8-13 5 4 8 7 8 13a8 8 0 0 1-16 0z" fill="#f2a900"/><path d="M20 17v14M15 22l5 5 5-5" stroke="#123524" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Open Hands
-    </a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="#about">About</a></li><li><a href="#programs">Programs</a></li><li><a href="#impact">Impact</a></li><li><a href="#stories">Stories</a></li><li><a href="#involved">Get involved</a></li>
-      </ul>
-      <a class="btn btn-gold m-cta" href="#donate">Donate now</a>
-    </nav>
-    <div class="right">
-      <a class="btn btn-green" href="#donate">Donate</a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span><i></i><i></i><i></i></span></button>
-    </div>
-  </div>
-</header>
-
 <main id="top">
-<section class="hero" style="padding-bottom:0">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">Education · Health · Livelihoods</span>
-      <h1>Small acts. <em>Lasting</em> change.</h1>
-      <p class="lead">We walk with children and families in Ghana's communities so they can learn, stay healthy and build a living. Every cedi, every hour, every kind word moves someone forward.</p>
-      <div class="cta-row">
-        <a class="btn btn-gold" href="#donate">Give today <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-line" href="#involved">Volunteer with us</a>
+<section class="hero" style="padding:0">
+  <img src="ngo-child.jpg" alt="A smiling child with friends" width="1100" height="732" fetchpriority="high">
+  <div class="wrap" style="display:flex;flex-direction:column;flex:1;width:min(1240px,100% - 36px)">
+    <div class="nav">
+      <a href="#top" class="logo" aria-label="Open Hands Foundation">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc21a"/><path d="M12 25c0-6 3-9 8-13 5 4 8 7 8 13a8 8 0 0 1-16 0z" fill="#0d3b2a"/><path d="M20 17v14M15 22l5 5 5-5" stroke="#ffc21a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Open Hands
+      </a>
+      <ul id="menu">
+        <li><a href="#about">Why</a></li><li><a href="#impact">Impact</a></li><li><a href="#programs">Programs</a></li><li><a href="#stories">Stories</a></li><li><a href="#ways">Get involved</a></li>
+      </ul>
+      <div class="r"><a class="btn btn-gold" href="#donate">Donate</a><button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span><i></i><i></i><i></i></span></button></div>
+    </div>
+    <div class="hero-body">
+      <div>
+        <span class="tag">Education · Health · Livelihoods</span>
+        <h1>Change starts with <em>one open hand.</em></h1>
+        <p class="lead">We walk with children, mothers and communities across Ghana so they can learn, stay healthy and build a living of their own.</p>
       </div>
-    </div>
-    <div class="hero-img-wrap">
-      <svg class="deco" viewBox="0 0 100 100" aria-hidden="true"><g fill="#f2a900"><path d="M50 0l8 34 34-8-26 24 26 24-34-8-8 34-8-34-34 8 26-24L8 26l34 8z"/></g></svg>
-      <div class="hero-img"><img src="ngo-classroom.jpg" alt="Children in a classroom raising their hands" width="1100" height="734" fetchpriority="high"></div>
-      <div class="chip"><span class="dot"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.700-8 11-8 11z"/></svg></span><span><b data-count="12400">12,400</b>children supported</span></div>
-    </div>
-  </div>
-  <div class="trust" aria-hidden="true"><div class="row">
-    <span>Registered NGO</span><span>Audited every year</span><span>92p of every cedi goes to programs</span><span>Run by local people</span>
-    <span>Registered NGO</span><span>Audited every year</span><span>92p of every cedi goes to programs</span><span>Run by local people</span>
-  </div></div>
-</section>
-
-<section id="about">
-  <div class="wrap about">
-    <div class="pic rv"><img src="ngo-women.jpg" alt="Women and children in a community" loading="lazy" width="1100" height="1650"></div>
-    <div class="rv">
-      <span class="eyebrow">Who we are</span>
-      <h2>Rooted in the community. Built on trust.</h2>
-      <p>We started with one classroom and a simple belief: communities know what they need. So we listen first, then bring the people, the supplies and the training to make it happen.</p>
-      <p>Today our team of staff and volunteers works side by side with families, teachers and local leaders. We share what we spend and what changes, in plain words.</p>
-      <div class="pillars"><div><b>Learn</b>Every child in school</div><div><b>Thrive</b>Healthy families</div><div><b>Earn</b>Skills and small business</div></div>
+      <aside class="gift" id="donate" aria-label="Donate">
+        <h3>Give today <span>100% to the work</span></h3>
+        <div class="seg" role="group" aria-label="Frequency"><button class="on" data-freq="once">Once</button><button data-freq="month">Monthly</button></div>
+        <div class="amts" role="group" aria-label="Amount"><button data-amt="50">50</button><button class="on" data-amt="100">100</button><button data-amt="250">250</button><button data-amt="500">500</button></div>
+        <label class="custom"><span>GHS</span><input id="custom" inputmode="numeric" placeholder="Other amount" aria-label="Other amount"></label>
+        <div class="imp" id="imp"></div>
+        <button class="btn" id="giveBtn">Donate GHS 100</button>
+        <small>Mobile Money, card or bank transfer · Receipt sent to you</small>
+      </aside>
     </div>
   </div>
 </section>
+<div class="kente" aria-hidden="true"></div>
 
-<section class="programs" id="programs">
+<div class="mq" aria-hidden="true"><div class="row">
+  <span>Learn</span><span>Thrive</span><span>Earn</span><span>Lead</span><span>Learn</span><span>Thrive</span><span>Earn</span><span>Lead</span>
+  <span>Learn</span><span>Thrive</span><span>Earn</span><span>Lead</span><span>Learn</span><span>Thrive</span><span>Earn</span><span>Lead</span>
+</div></div>
+
+<section class="statement" id="about">
   <div class="wrap">
-    <div class="head rv"><div><span class="eyebrow">What we do</span><h2>Three programs. One goal.</h2></div><p>Each program is run with the community and measured every term, so you can see what your support does.</p></div>
-    <div class="cards">
-      <article class="card rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M7 9.500V15c0 1.700 2.200 3 5 3s5-1.300 5-3V9.500"/><path d="M21 7v6"/></svg></div><h3>Learn</h3><p>School supplies, tutoring and scholarships so children can start the term ready and stay in class.</p><a href="#" data-soon="Program pages are part of the full website.">Learn more <span aria-hidden="true">→</span></a></article>
-      <article class="card rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.300-8-11a4.500 4.500 0 0 1 8-2.800A4.500 4.500 0 0 1 20 10c0 5.700-8 11-8 11z"/></svg></div><h3>Thrive</h3><p>Health screenings, clean water and nutrition outreach that keep families strong and children learning.</p><a href="#" data-soon="Program pages are part of the full website.">Learn more <span aria-hidden="true">→</span></a></article>
-      <article class="card rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div><h3>Earn</h3><p>Skills training and start-up support for women and young people building their own small businesses.</p><a href="#" data-soon="Program pages are part of the full website.">Learn more <span aria-hidden="true">→</span></a></article>
-    </div>
+    <span class="tag rv">Why we exist</span>
+    <p id="stmt">We believe every child, every mother and every community already holds the power to rise. We bring the doors, the tools and the people to open them.</p>
   </div>
 </section>
 
 <section class="impact" id="impact">
   <div class="wrap">
-    <span class="eyebrow">Our impact</span>
-    <h2 class="rv">Proof that small acts add up.</h2>
+    <span class="tag rv" style="background:var(--coral);color:#fff">Our impact</span>
+    <h2 class="rv" style="margin-top:18px">Nine years. Thousands of open doors.</h2>
     <div class="grid">
-      <div class="stat rv"><b data-count="12400" data-fmt="1">0</b><span>children supported</span></div>
+      <div class="stat rv"><b data-count="12400">0</b><span>children supported</span></div>
       <div class="stat rv"><b data-count="38">0</b><span>communities reached</span></div>
       <div class="stat rv"><b data-count="240">0</b><span>active volunteers</span></div>
       <div class="stat rv"><b data-count="9">0</b><span>years of work</span></div>
     </div>
   </div>
+  <div class="kente" aria-hidden="true"></div>
 </section>
 
-<section id="donate">
+<section class="programs" id="programs">
   <div class="wrap">
-    <div class="donate-box rv">
-      <div>
-        <span class="eyebrow">Give</span>
-        <h2>Your gift goes straight to the work.</h2>
-        <p class="sub">Choose an amount. Give once, or give monthly and become part of what we do every day.</p>
-        <div class="pic" style="margin-top:28px;border-radius:22px;overflow:hidden;aspect-ratio:16/9"><img src="ngo-child.jpg" alt="A smiling child" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:60% 40%" width="1100" height="732"></div>
-      </div>
-      <div>
-        <div class="seg" role="group" aria-label="Frequency"><button class="on" data-freq="once">Give once</button><button data-freq="month">Monthly</button></div>
-        <div class="amts" role="group" aria-label="Amount"><button data-amt="50">50</button><button class="on" data-amt="100">100</button><button data-amt="250">250</button><button data-amt="500">500</button></div>
-        <label class="custom"><span>GHS</span><input id="custom" inputmode="numeric" placeholder="Other amount" aria-label="Other amount"></label>
-        <div class="impact-line"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.300-8-11a4.500 4.500 0 0 1 8-2.800A4.500 4.500 0 0 1 20 10c0 5.700-8 11-8 11z"/></svg><span id="imp"></span></div>
-        <button class="btn btn-green" id="giveBtn">Donate GHS 100</button>
-        <p class="secure">Mobile Money, card or bank transfer. Receipts by email or WhatsApp.</p>
-      </div>
+    <div class="top"><h2 class="rv">Three ways<br>we open doors.</h2><p class="rv">Each program is built with the community and measured every term, so you can see what your support does.</p></div>
+    <div class="stack">
+      <article class="panel p1" style="--i:0"><div class="txt"><span class="num">01</span><h3>Learn</h3><p>School supplies, tutoring and scholarships, so every child starts the term ready and stays in class.</p><ul><li>Supplies</li><li>Tutoring</li><li>Scholarships</li></ul></div><div class="pic"><img src="ngo-classroom.jpg" alt="Children in a classroom raising their hands" loading="lazy" width="1100" height="734"><span class="tag">4,100 pupils this year</span></div></article>
+      <article class="panel p2" style="--i:1"><div class="txt"><span class="num">02</span><h3>Thrive</h3><p>Health screenings, clean water and nutrition outreach that keep families strong and children learning.</p><ul><li>Health days</li><li>Clean water</li><li>Nutrition</li></ul></div><div class="pic"><img src="ngo-women.jpg" alt="Mothers and children" loading="lazy" style="object-position:50% 25%" width="1100" height="1650"><span class="tag">26 clinics held</span></div></article>
+      <article class="panel p3" style="--i:2"><div class="txt"><span class="num">03</span><h3>Earn</h3><p>Skills training and start-up support for women and young people building their own small businesses.</p><ul><li>Training</li><li>Start-up grants</li><li>Mentors</li></ul></div><div class="pic"><img src="ngo-market.jpg" alt="A woman carrying goods to market" loading="lazy" style="object-position:50% 30%" width="900" height="1273"><span class="tag">310 new businesses</span></div></article>
     </div>
   </div>
 </section>
 
 <section class="stories" id="stories">
-  <div class="wrap">
-    <div class="head rv"><div><span class="eyebrow">Stories</span><h2>Real people. Real change.</h2></div><p>Sample stories shown here. The real ones come from your own families, volunteers and partners.</p></div>
-    <div class="story-grid">
-      <div class="story-big rv"><img src="ngo-community.jpg" alt="Community celebration with music and dance" loading="lazy" width="1100" height="734"><div><q>When the whole community shows up, children see that they matter. That is when everything starts to change.</q><cite>Sample story · Programme coordinator</cite></div></div>
-      <div class="story-side">
-        <article class="story-small rv"><img src="ngo-volunteers.jpg" alt="Two smiling volunteers" loading="lazy" width="1100" height="733"><div><h3>Meet our volunteers</h3><p>Students and professionals who give their weekends to run reading clubs and health days.</p></div></article>
-        <article class="story-small rv"><img src="ngo-women.jpg" alt="Mothers and children" loading="lazy" style="object-position:50% 22%" width="1100" height="1650"><div><h3>Mothers leading the way</h3><p>How a savings group became a small business that now pays school fees.</p></div></article>
-      </div>
+  <div class="wrap top"><h2 class="rv">Real people.<br>Real change.</h2><div class="arrows"><button id="prev" aria-label="Previous">←</button><button id="next" aria-label="Next">→</button></div></div>
+  <div class="rail" id="rail">
+    <article class="story"><div class="ph"><img src="ngo-market.jpg" alt="Ama at her market stall" loading="lazy" style="object-position:50% 25%" width="900" height="1273"><span class="tag">Earn</span></div><div class="b"><h3>Ama doubled her shop income</h3><p>After business training and a small grant, Ama now supplies three local schools and employs two neighbours.</p><cite>Sample story · Kumasi</cite></div></article>
+    <article class="story"><div class="ph"><img src="ngo-class2.jpg" alt="Pupils in class" loading="lazy" width="1000" height="563"><span class="tag">Learn</span></div><div class="b"><h3>Kofi is first in his class</h3><p>With school supplies and weekly tutoring, Kofi went from missing lessons to topping his class in maths.</p><cite>Sample story · Tamale</cite></div></article>
+    <article class="story"><div class="ph"><img src="ngo-women.jpg" alt="Mothers and children" loading="lazy" style="object-position:50% 22%" width="1100" height="1650"><span class="tag">Thrive</span></div><div class="b"><h3>Mothers lead the way</h3><p>A savings group started at a health day now pays school fees for 40 children in the village.</p><cite>Sample story · Ho</cite></div></article>
+    <article class="story"><div class="ph"><img src="ngo-dance.jpg" alt="Community celebration" loading="lazy" width="1000" height="667"><span class="tag">Community</span></div><div class="b"><h3>A whole village shows up</h3><p>When the school opened its new library, the entire community came out to celebrate.</p><cite>Sample story · Wa</cite></div></article>
+    <article class="story"><div class="ph"><img src="ngo-volunteers.jpg" alt="Two smiling volunteers" loading="lazy" width="1100" height="733"><span class="tag">Volunteers</span></div><div class="b"><h3>Weekends well spent</h3><p>Students and professionals give their Saturdays to run reading clubs and health days.</p><cite>Sample story · Accra</cite></div></article>
+  </div>
+</section>
+
+<section class="money" id="money">
+  <div class="wrap g">
+    <div class="rv"><span class="tag">Total transparency</span><h2>Where every cedi goes.</h2><p>We publish how we spend and what changes, so you always know your gift is working.</p>
+      <div class="badges"><span>Registered NGO</span><span>Audited yearly</span><span>Annual report</span></div></div>
+    <div class="bars rv" id="bars">
+      <div class="bar" style="--w:92%"><div class="l"><span>Programs and communities</span><span>92p</span></div><div class="t"><i></i></div></div>
+      <div class="bar" style="--w:5%"><div class="l"><span>Running the organisation</span><span>5p</span></div><div class="t"><i></i></div></div>
+      <div class="bar" style="--w:3%"><div class="l"><span>Raising funds</span><span>3p</span></div><div class="t"><i></i></div></div>
     </div>
   </div>
 </section>
 
-<section id="involved">
+<section class="ways" id="ways">
   <div class="wrap">
-    <div class="rv"><span class="eyebrow">Get involved</span><h2 style="margin-top:12px;max-width:12em">There is a place for you here.</h2></div>
-    <div class="involve">
-      <a class="inv rv" href="#" data-soon="A volunteer sign-up form is part of the full website."><b>Volunteer</b><p>Give a few hours to tutoring, health days or events.</p><span>Sign up →</span></a>
-      <a class="inv rv" href="#" data-soon="A partnership page is part of the full website."><b>Partner with us</b><p>Companies and schools working with us for shared impact.</p><span>Talk to us →</span></a>
-      <a class="inv rv" href="#" data-soon="Fundraising pages are part of the full website."><b>Fundraise</b><p>Run a birthday, run or church drive for a cause you love.</p><span>Start a fundraiser →</span></a>
+    <h2 class="rv">There is a place for you here.</h2>
+    <div class="tiles">
+      <a class="tile rv" href="#" data-soon="A volunteer sign-up form is part of the full website."><div><h3>Volunteer</h3><p>Give a few hours to tutoring, health days or events.</p></div><span class="arrow">→</span></a>
+      <a class="tile rv" href="#" data-soon="A partnership page is part of the full website."><div><h3>Partner with us</h3><p>Companies and schools working with us for shared impact.</p></div><span class="arrow">→</span></a>
+      <a class="tile rv" href="#" data-soon="Fundraising pages are part of the full website."><div><h3>Fundraise</h3><p>Run a birthday, run or church drive for a cause you love.</p></div><span class="arrow">→</span></a>
     </div>
   </div>
 </section>
-
-<div class="news"><div class="wrap">
-  <h2>Hear what your support makes possible.</h2>
-  <form id="newsForm"><input type="email" required placeholder="Your email address" aria-label="Email address"><button class="btn btn-green" type="submit">Subscribe</button></form>
-</div></div>
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="foot">
-      <div><a href="#top" class="logo">Open Hands</a><p>A sample foundation created to show what a modern NGO website can look like.</p></div>
-      <div><h4>Explore</h4><ul><li><a href="#about">About</a></li><li><a href="#programs">Programs</a></li><li><a href="#impact">Impact</a></li><li><a href="#stories">Stories</a></li></ul></div>
-      <div><h4>Support</h4><ul><li><a href="#donate">Donate</a></li><li><a href="#involved">Volunteer</a></li><li><a href="#involved">Partner</a></li></ul></div>
+    <div class="fnews"><h2>Hear what your support makes possible.</h2><form id="newsForm"><input type="email" required placeholder="Your email address" aria-label="Email address"><button class="btn btn-gold" type="submit">Subscribe</button></form></div>
+    <div class="cols">
+      <div><h4>Explore</h4><ul><li><a href="#about">Why</a></li><li><a href="#impact">Impact</a></li><li><a href="#programs">Programs</a></li><li><a href="#stories">Stories</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#donate">Donate</a></li><li><a href="#ways">Volunteer</a></li><li><a href="#ways">Partner</a></li></ul></div>
       <div><h4>Contact</h4><ul><li>Accra, Ghana</li><li>hello@yourfoundation.org</li><li>+233 00 000 0000</li></ul></div>
     </div>
+    <div class="giant" aria-hidden="true">Open Hands</div>
     <div class="legal"><span>© 2026 Open Hands Foundation (sample)</span><span>Concept website by <a href="../" style="text-decoration:underline">SAUTiQ</a></span></div>
   </div>
+  <div class="kente" aria-hidden="true" style="margin-top:34px"></div>
 </footer>
 
-<!-- what's included -->
 <div class="modal" id="incl" role="dialog" aria-modal="true" aria-label="What's included">
   <div class="sheet">
     <button class="x" data-close aria-label="Close">✕</button>
-    <span class="eyebrow">NGO starter pack</span>
+    <span class="tag">NGO starter pack</span>
     <h3>Start simple. Grow when you're ready.</h3>
-    <p>This page is the starter pack. It already looks and feels professional, and each extra page is added when you need it.</p>
+    <p>This page is the starter pack. It already looks and feels world-class, and each extra page is added when you need it.</p>
     <h5>Included in the starter pack</h5>
-    <ul><li>One-page website that works on every phone</li><li>Donation section with amounts and monthly giving</li><li>Photos, stories and impact numbers</li><li>Contact and newsletter sign-up</li><li>Fast loading, search-friendly and shareable links</li></ul>
+    <ul><li>One-page website that works beautifully on every phone</li><li>Donation section with amounts and monthly giving</li><li>Photos, stories and impact numbers</li><li>Contact and newsletter sign-up</li><li>Fast loading, search-friendly and shareable links</li></ul>
     <h5>Pages you can add</h5>
-    <ul class="addon"><li>Program pages, one for each project</li><li>Events and calendar</li><li>News and blog</li><li>Annual reports and downloads</li><li>Volunteer sign-up and partner pages</li><li>Live Mobile Money and card payments</li><li>Donor wall and photo galleries</li></ul>
-    <div class="ctas"><a class="btn btn-green" href="https://wa.me/233593275980?text=Hi%20SAUTiQ%2C%20I%20saw%20the%20NGO%20prototype%20and%20I%27d%20like%20a%20quote." target="_blank" rel="noopener">Talk to SAUTiQ</a><button class="btn btn-line" data-close>Back to the site</button></div>
+    <ul class="addon"><li>A page for each program</li><li>Events and calendar</li><li>News and blog</li><li>Annual reports and downloads</li><li>Volunteer sign-up and partner pages</li><li>Live Mobile Money and card payments</li><li>Donor wall and photo galleries</li></ul>
+    <div class="ctas"><a class="btn btn-dark" href="https://wa.me/233593275980?text=Hi%20SAUTiQ%2C%20I%20saw%20the%20NGO%20prototype%20and%20I%27d%20like%20a%20quote." target="_blank" rel="noopener">Talk to SAUTiQ</a><button class="btn btn-line" data-close>Back to the site</button></div>
   </div>
 </div>
 <div class="modal" id="pay" role="dialog" aria-modal="true" aria-label="Choose how to give">
   <div class="sheet">
     <button class="x" data-close aria-label="Close">✕</button>
-    <span class="eyebrow">Demo only</span>
+    <span class="tag">Demo only</span>
     <h3 id="payTitle">Choose how to give</h3>
     <p>On the real website, this opens a secure payment. Nothing is charged here.</p>
     <div class="pay"><button data-soon="Real Mobile Money checkout is part of the full website.">Mobile Money <small>MTN · Telecel · AT</small></button><button data-soon="Real card checkout is part of the full website.">Card <small>Visa · Mastercard</small></button><button data-soon="Bank transfer details would show here.">Bank transfer <small>Details and reference</small></button></div>
@@ -387,35 +363,39 @@ footer{background:var(--green);color:var(--cream);padding:70px 0 34px}
 <script>
 (function(){
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))},B=document.body;
-/* toast */
+var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* toast + modals */
 var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on")},2800)}
 $$("[data-soon]").forEach(function(e){e.addEventListener("click",function(ev){ev.preventDefault();toast(e.getAttribute("data-soon"))})});
-/* modals */
 function open(id){$("#"+id).classList.add("open");B.style.overflow="hidden"}
 function closeAll(){$$(".modal.open").forEach(function(m){m.classList.remove("open")});B.style.overflow=""}
 $$("[data-open]").forEach(function(e){e.addEventListener("click",function(){open(e.getAttribute("data-open"))})});
 $$("[data-close]").forEach(function(e){e.addEventListener("click",closeAll)});
 $$(".modal").forEach(function(m){m.addEventListener("click",function(ev){if(ev.target===m)closeAll()})});
 addEventListener("keydown",function(e){if(e.key==="Escape"){closeAll();menu(false)}});
-/* mobile menu */
+/* menu */
 var bu=$("#burger");function menu(f){B.classList.toggle("menu-open",f);bu.setAttribute("aria-expanded",B.classList.contains("menu-open"));B.style.overflow=B.classList.contains("menu-open")?"hidden":""}
-bu.onclick=function(){menu()};$$("nav a").forEach(function(a){a.addEventListener("click",function(){menu(false)})});
-/* reveal + counters */
-var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
-function fmt(n,c){return c?n.toLocaleString("en-GH"):String(n)}
-function count(el){var to=+el.dataset.count,f=el.dataset.fmt,t0=performance.now(),d=1400;if(reduce){el.textContent=fmt(to,f||el.dataset.count>999);return}
-(function s(t){var p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(to*e),to>999);if(p<1)requestAnimationFrame(s)})(t0)}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add("in");$$("[data-count]",e.target).forEach(count);io.unobserve(e.target)})},{threshold:.15});
+bu.onclick=function(){menu()};$$("#menu a").forEach(function(a){a.addEventListener("click",function(){menu(false)})});
+/* reveal + counters + bars */
+function fmt(n){return n>999?n.toLocaleString("en-GH"):String(n)}
+function count(el){var to=+el.dataset.count,t0=performance.now(),d=1500;if(reduce){el.textContent=fmt(to);return}(function s(t){var p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(to*e));if(p<1)requestAnimationFrame(s)})(t0)}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add("in");$$("[data-count]",e.target).forEach(count);io.unobserve(e.target)})},{threshold:.2});
 $$(".rv").forEach(function(e){io.observe(e)});
+/* scroll-filled statement */
+var st=$("#stmt");st.innerHTML=st.textContent.split(" ").map(function(w){return "<span>"+w+"</span>"}).join(" ");
+var ws=$$("#stmt span");
+function fill(){var r=st.getBoundingClientRect(),h=innerHeight,p=(h*.85-r.top)/(h*.55+r.height*.6);p=Math.max(0,Math.min(1,p));var k=Math.round(p*ws.length);ws.forEach(function(s,i){s.classList.toggle("on",i<k)})}
+if(reduce){ws.forEach(function(s){s.classList.add("on")})}else{addEventListener("scroll",fill,{passive:true});addEventListener("resize",fill);fill()}
 /* donation */
 var amt=100,freq="once",IMP={50:"GHS 50 gives school supplies to 2 children.",100:"GHS 100 covers school supplies and a term of tutoring for 4 children.",250:"GHS 250 funds a health screening day for 25 families.",500:"GHS 500 helps one woman start a small business."};
-function upd(){var m=freq==="month"?" / month":"";$("#giveBtn").textContent="Donate GHS "+amt+m;
- $("#imp").textContent=(IMP[amt]||("GHS "+amt+" helps us reach more children, families and communities."))+(freq==="month"?" Every month.":"")}
+function upd(){var m=freq==="month"?" / month":"";$("#giveBtn").textContent="Donate GHS "+amt+m;$("#imp").textContent=(IMP[amt]||("GHS "+amt+" helps us reach more children and families."))+(freq==="month"?" Every month.":"")}
 $$("[data-amt]").forEach(function(b){b.onclick=function(){$$("[data-amt]").forEach(function(x){x.classList.remove("on")});b.classList.add("on");amt=+b.dataset.amt;$("#custom").value="";upd()}});
 $("#custom").addEventListener("input",function(){var v=parseInt(this.value.replace(/\D/g,""),10);if(v>0){amt=v;$$("[data-amt]").forEach(function(x){x.classList.remove("on")});upd()}});
 $$("[data-freq]").forEach(function(b){b.onclick=function(){$$("[data-freq]").forEach(function(x){x.classList.remove("on")});b.classList.add("on");freq=b.dataset.freq;upd()}});
 $("#giveBtn").onclick=function(){$("#payTitle").textContent="Give GHS "+amt+(freq==="month"?" every month":"");open("pay")};
 upd();
+/* stories rail */
+var rail=$("#rail");$("#next").onclick=function(){rail.scrollBy({left:400,behavior:"smooth"})};$("#prev").onclick=function(){rail.scrollBy({left:-400,behavior:"smooth"})};
 $("#newsForm").addEventListener("submit",function(e){e.preventDefault();toast("Thank you! (Demo: nothing was sent.)");e.target.reset()});
 })();
 </script>
