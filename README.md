@@ -18,7 +18,7 @@ Search `index.html` for these placeholders and replace them:
 
 ## Client prototypes (demos)
 Concept sites used to pitch clients. They are hidden from search engines (`noindex`) and are not linked from the main site.
-- `demo-ngo/`: NGO starter website ("Open Hands Foundation", a sample name)
-- `demo-glasses/`: fashion eyewear online store ("Sol & Frame", a sample name)
+- `demo-ngo/`: NGO starter website ("Open Hands Foundation", a sample name): full-photo hero with a built-in donation card, kente-inspired colour motif, stacked program panels, stories and a transparency section
+- `demo-glasses/`: fashion eyewear online store ("Sol & Frame", a sample name): colour-block hero with an editorial photo collage, real product photography, working cart and WhatsApp order preview
 
-Names, figures, reviews and contact details in the demos are samples. The photos are free-to-use stock photos from Unsplash (photographers include Annie Spratt, Ben White, Charles William Adofo, Yoel Winkler, Emmanuel Ikwuegbu, Sara Dabaghian, Ali Pazani, Omid Armin, Branislav Rodman and Emma Dau). Replace them with the client's own photos before launch.
+Names, figures, reviews and contact details in the demos are samples. The photos are free-to-use stock photos from Unsplash (photographers include Annie Spratt, Ben White, Doug Linstedt, Charles William Adofo, Yoel Winkler, Kojo Kwarteng, Emmanuel Ikwuegbu, Sara Dabaghian, Ali Pazani, Omid Armin, Branislav Rodman, Emma Dau, charlesdeluvio, Annie Williams, Alondra Lucia, Ace Wong and Irish83). Replace them with the client's own photos before launch.
