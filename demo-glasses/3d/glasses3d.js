@@ -15,14 +15,23 @@ function superellipse(n, a, b, N = 160) {
   }
   return pts;
 }
+function chaikin(pts, it = 4) {
+  for (let k = 0; k < it; k++) {
+    const out = [];
+    for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; out.push([.75 * p[0] + .25 * q[0], .75 * p[1] + .25 * q[1]], [.25 * p[0] + .75 * q[0], .25 * p[1] + .75 * q[1]]); }
+    pts = out;
+  }
+  let A = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; A += p[0] * q[1] - q[0] * p[1]; }
+  return A < 0 ? pts.reverse() : pts;
+}
 export const STYLES = {
   round:    { a: 22.5, b: 22.5, make: () => superellipse(2, 22.5, 22.5) },
-  rect:     { a: 31, b: 15, make: () => superellipse(5, 31, 15).map(([x, y]) => [x, y + 1.2 * (x + 31) / 62 - 0.8]) },
+  rect:     { a: 31, b: 16.5, make: () => superellipse(4.2, 31, 16.5).map(([x, y]) => [x, y + 1.2 * (x + 31) / 62 - 0.8]) },
   wayfarer: { a: 27, b: 19.5, make: () => superellipse(3.2, 27, 19.5).map(([x, y]) => { const u = (x + 27) / 54; return [x * (1 + 0.1 * Math.max(0, y) / 19.5), (y < 0 ? y * .88 : y) + 3 * u]; }) },
   square:   { a: 25.5, b: 22, make: () => superellipse(4.4, 25.5, 22).map(([x, y]) => [x, y - 0.04 * x]) },
   angular:  { a: 27, b: 20, make: () => superellipse(7, 27, 20).map(([x, y]) => { const u = (x + 27) / 54; return [x, y * (y < 0 ? 1 - .18 * u : 1) + 5 * Math.pow(u, 2)]; }) },
-  cat:      { a: 28, b: 20, make: () => superellipse(3.0, 28, 19).map(([x, y]) => { const u = (x + 28) / 56, up = Math.pow(u, 2.5) * 14; return [x * (1 + 0.05 * u), y < 0 ? y * (1 - 0.16 * u) + up * .5 : y + up]; }) },
-  butterfly:{ a: 31, b: 25, make: () => superellipse(2.7, 31, 25).map(([x, y]) => { const u = (x + 31) / 62, up = Math.pow(u, 2.2) * 9; return [x, y < 0 ? y * (1 - .12 * u) + up * .4 : y + up]; }) },
+  cat:      { a: 31, b: 17, make: () => chaikin([[-22,-6],[-21,4],[-9,10],[10,11],[26,17],[39,27],[32,12],[26,-2],[16,-11],[3,-15],[-10,-15],[-19,-12]], 2) },
+  butterfly:{ a: 31, b: 24, make: () => chaikin([[-28,-8],[-30,12],[-20,22],[0,24],[22,27],[31,22],[31,2],[26,-14],[12,-22],[-8,-23],[-23,-18]], 4) },
 };
 
 function offsetContour(pts, thick) {
@@ -183,7 +192,7 @@ export function buildGlasses(spec) {
   for (const side of [1, -1]) {
     const pivot = new T.Group(); pivot.position.set(side * hx, hy, zf);
     const rel = [[0, 0, 0], [side * .8, 0, -8], [side * 3.2, 0, -52], [side * 5.2, -1.2, -96], [side * 5, -10, -130], [side * 4.2, -19, -144]];
-    const geo = sweepTube(rel, .92, 1.55, 3.6, 1.55, 18, 100);
+    const geo = sweepTube(rel, .95, 2.15, 4.4, 1.7, 18, 100);
     pivot.add(new T.Mesh(geo, tm));
     /* gold rivets on the temple front */
     for (const z of [-7, -14]) {
