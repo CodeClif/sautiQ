@@ -98,9 +98,9 @@ function templeMaterial(f) {
 }
 function lensMaterial(l) {
   return new T.MeshPhysicalMaterial({
-    color: 0xffffff, vertexColors: true, transparent: true, opacity: l.opacity ?? .9, roughness: l.mirror ? .06 : .03,
-    metalness: l.mirror ? .9 : 0, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: l.mirror ? 2 : 1.6,
-    iridescence: l.mirror ? .7 : .25, iridescenceIOR: 1.6, side: T.DoubleSide, depthWrite: false,
+    color: 0xffffff, vertexColors: true, transparent: true, opacity: l.opacity ?? .62, roughness: .04,
+    metalness: l.mirror ? .5 : 0, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: l.mirror ? 1.2 : .7,
+    iridescence: l.mirror ? .3 : 0, iridescenceIOR: 1.6, side: T.DoubleSide, depthWrite: false,
   });
 }
 const metalMat = (c, r = .2) => new T.MeshPhysicalMaterial({ color: c, metalness: 1, roughness: r, envMapIntensity: 1.4 });
@@ -145,7 +145,7 @@ export function buildGlasses(spec) {
     lg.translate(0, 0, -.75 + 0.2);
     { const lp = lg.attributes.position, lcx = side * cx; for (let i = 0; i < lp.count; i++) { const dx = (lp.getX(i) - lcx) / st.a, dy = lp.getY(i) / st.b, r2 = Math.min(1, dx * dx + dy * dy); lp.setZ(i, lp.getZ(i) + 3.4 * (1 - r2)); } lg.computeVertexNormals(); }
     const ys = inn.map((q) => q[1]), yMin = Math.min(...ys), yMax = Math.max(...ys);
-    const col = new T.Color(spec.lens.color), light = col.clone().lerp(new T.Color(0xffffff), spec.lens.mirror ? .08 : .3);
+    const col = new T.Color(spec.lens.color), light = col.clone().lerp(new T.Color(0xffffff), spec.lens.mirror ? .05 : .1);
     const cArr = [], pp = lg.attributes.position;
     for (let i = 0; i < pp.count; i++) {
       const t = (pp.getY(i) - yMin) / (yMax - yMin);
@@ -154,7 +154,7 @@ export function buildGlasses(spec) {
       cArr.push(cc.r, cc.g, cc.b);
     }
     lg.setAttribute('color', new T.Float32BufferAttribute(cArr, 3));
-    group.add(new T.Mesh(lg, lensMaterial(spec.lens)));
+    { const lm = new T.Mesh(lg, lensMaterial(spec.lens)); lm.renderOrder = 5; group.add(lm); }
 
     /* chunky acetate rim */
     const shape = new T.Shape(outP.map(([x, y]) => V2(x, y)));
@@ -235,8 +235,8 @@ function studioEnv() {
     const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(v * tint[0], v * tint[1], v * tint[2]), side: T.DoubleSide }));
     m.position.set(...pos); m.lookAt(0, 0, 0); s.add(m);
   };
-  box(14, 10, [0, 10, 3], 7);               /* big top softbox */
-  box(3, 14, [-11, 3, 5], 12);              /* left strip */
+  box(14, 10, [0, 10, 3], 3.2);               /* big top softbox */
+  box(3, 14, [-11, 3, 5], 9);              /* left strip */
   box(3, 14, [11, 3, 3], 8, [1, .96, .9]);  /* right strip, warm */
   box(12, 4, [0, 1, 12], 3.2);              /* front fill */
   box(8, 8, [0, 5, -12], 5);                /* back rim */

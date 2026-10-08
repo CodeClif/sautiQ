@@ -1,7 +1,7 @@
 /* Sample catalogue. Each colour is a full 3D material spec. */
 const solid = (c, r) => ({ type: 'solid', color: c, rough: r ?? .24 });
-const lens = (c, o) => ({ color: c, opacity: o ?? .92 });
-const mirror = (c) => ({ color: c, mirror: true, opacity: 1, grad: false });
+const lens = (c, o) => ({ color: c, opacity: o ?? .66 });
+const mirror = (c) => ({ color: c, mirror: true, opacity: .8, grad: false });
 
 export const PRODUCTS = [
   { id: 'ama', name: 'Ama', price: 340, kind: 'Round · Acetate', shape: 'round', rim: 11, depth: 9, blurb: 'Bold, perfectly round and cut from thick, hand-polished acetate.', colors: [
@@ -13,7 +13,7 @@ export const PRODUCTS = [
     { n: 'Noir', swatch: '#141414', frame: solid(0x111111, .2), lens: lens('#262626') },
     { n: 'Burgundy', swatch: '#6a1a2a', frame: solid(0x6a1a2a, .22), lens: lens('#4a2a30') } ] },
   { id: 'efua', name: 'Efua', price: 320, kind: 'Rectangle · Acetate', shape: 'rect', rim: 12, depth: 9, blurb: 'Wide, slim and confident. A modern rectangle with all-day comfort.', colors: [
-    { n: 'Noir', swatch: '#141414', frame: solid(0x111111, .2), lens: lens('#7a5a18') },
+    { n: 'Noir', swatch: '#141414', frame: solid(0x111111, .2), lens: lens('#6a4a10') },
     { n: 'Ivory', swatch: '#efe6d3', frame: solid(0xefe6d3, .26), lens: lens('#3a2a1c') },
     { n: 'Olive', swatch: '#4b5230', frame: solid(0x4b5230, .24), lens: lens('#2a3022') } ] },
   { id: 'kofi', name: 'Kofi', price: 360, kind: 'Classic · Crystal', shape: 'wayfarer', rim: 10.5, brow: 3, depth: 9, blurb: 'The classic wayfarer in clear crystal acetate you can see right through.', colors: [
@@ -21,7 +21,7 @@ export const PRODUCTS = [
     { n: 'Smoke', swatch: '#6b6b70', frame: { type: 'crystal', color: '#9a9aa2', deep: '#35353a' }, lens: lens('#2a2a2e') },
     { n: 'Noir', swatch: '#141414', frame: solid(0x111111, .2), lens: lens('#262626') } ] },
   { id: 'kwame', name: 'Kwame', price: 350, kind: 'Angular · Acetate', shape: 'angular', rim: 11.5, depth: 9, blurb: 'Strong, square and sharp, with mirrored lenses that catch the light.', colors: [
-    { n: 'Noir · Mirror', swatch: '#141414', frame: solid(0x111111, .18), lens: mirror('#b9bfc4') },
+    { n: 'Noir · Mirror', swatch: '#141414', frame: solid(0x111111, .18), lens: mirror('#46505a') },
     { n: 'Havana', swatch: '#7b4a1e', frame: { type: 'tortoise' }, lens: lens('#3a2a1a') },
     { n: 'Navy', swatch: '#1d2b4a', frame: solid(0x1d2b4a, .22), lens: lens('#2c4766') } ] },
   { id: 'esi', name: 'Esi', price: 390, kind: 'Butterfly · Acetate', shape: 'butterfly', rim: 11, brow: 2, depth: 9, blurb: 'Big, bold and glamorous. Statement frames in rich, glossy colour.', colors: [
